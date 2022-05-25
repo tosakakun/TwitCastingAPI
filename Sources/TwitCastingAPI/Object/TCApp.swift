@@ -8,13 +8,13 @@
 import Foundation
 
 /// アプリケーションを表すオブジェクト
-struct TCApp: Codable {
+public struct TCApp: Codable {
     
     /// アプリケーションのクライアントID
-    let clientId: String
+    public let clientId: String
     /// アプリケーション名
-    let name: String
+    public let name: String
     /// アプリケーション開発者のユーザID
-    let ownerUserId: String
+    public let ownerUserId: String
 
 }

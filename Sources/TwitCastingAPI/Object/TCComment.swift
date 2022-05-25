@@ -8,15 +8,15 @@
 import Foundation
 
 /// コメントを表すオブジェクト
-struct TCComment: Codable, Identifiable {
+public struct TCComment: Codable, Identifiable {
     
     /// コメントID
-    let id: String
+    public let id: String
     /// コメント本文
-    let message: String
+    public let message: String
     /// コメント投稿者の情報 Userオブジェクト
-    let fromUser: TCUser
+    public let fromUser: TCUser
     /// コメント投稿日時のunixタイムスタンプ
-    let created: Int
+    public let created: Int
     
 }

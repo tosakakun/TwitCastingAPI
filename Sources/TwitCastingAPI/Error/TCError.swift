@@ -8,7 +8,7 @@
 import Foundation
 
 /// エラー
-enum TCError: Error {
+public enum TCError: Error {
     /// アクセストークンが不正な時
     case invalidToken(code: Int, message: String)
     /// バリデーションエラー時
@@ -47,7 +47,7 @@ extension TCError {
         TCError.unknownError(code: 9999, message: messeage ?? "unknown error")
     }
     
-    var localizedDescription: String {
+    public var localizedDescription: String {
         
         switch self {
         case .validationError(let code, let message, let details):
@@ -100,7 +100,7 @@ fileprivate struct TCRawError: Codable {
 
 }
 
-struct TCErrorResponse: Codable {
+public struct TCErrorResponse: Codable {
     
     fileprivate let rawError: TCRawError
     
@@ -112,7 +112,7 @@ struct TCErrorResponse: Codable {
 
 extension TCErrorResponse {
 
-    var error: TCError {
+    public var error: TCError {
         
         let code = rawError.code
         let message = rawError.message

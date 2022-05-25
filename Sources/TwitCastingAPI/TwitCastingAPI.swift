@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TwitCastingAPI {
+public struct TwitCastingAPI {
     
     // HTTP メソッドの種類
     private enum HTTPMethod: String {
@@ -18,7 +18,7 @@ struct TwitCastingAPI {
     }
     
     /// ライブサムネイル画像サイズ
-    enum LiveThumbnailImageSize: String {
+    public enum LiveThumbnailImageSize: String {
         /// 大
         case large
         /// 小
@@ -26,7 +26,7 @@ struct TwitCastingAPI {
     }
     
     /// ライブサムネイル取得位置
-    enum LiveThumbnailImagePosition: String {
+    public enum LiveThumbnailImagePosition: String {
         /// ライブ開始時点
         case beginning
         /// ライブ最新
@@ -34,7 +34,7 @@ struct TwitCastingAPI {
     }
     
     /// SNSへの同時投稿(ユーザーがTwitterまたはFacebookと連携しているときのみ有効)
-    enum SNS: String, CaseIterable {
+    public enum SNS: String, CaseIterable {
         /// 配信者へリプライする形式で投稿
         case reply
         /// 通常の投稿
@@ -44,7 +44,7 @@ struct TwitCastingAPI {
     }
     
     /// サポーターリスト取得時のソート順
-    enum SupporterSort: String, CaseIterable {
+    public enum SupporterSort: String, CaseIterable {
         /// 新着順
         case new
         /// 貢献度順
@@ -52,36 +52,36 @@ struct TwitCastingAPI {
     }
     
     /// カテゴリ検索対象の言語
-    enum CategoryLang: String {
+    public enum CategoryLang: String {
         case ja
         case en
     }
     
     /// 検索対象のユーザの言語設定
-    enum UsersLang: String {
+    public enum UsersLang: String {
         case ja
     }
     
     /// 配信中のライブ検索の検索種別
-    enum LiveMoviesType: String, CaseIterable, Identifiable {
+    public enum LiveMoviesType: String, CaseIterable, Identifiable {
         case tag
         case word
         case category
         case new
         case recommend
         
-        var id: Self {
+        public var id: Self {
             self
         }
     }
     
     /// 配信中のライブ検索の言語設定
-    enum LiveMoviesLang: String {
+    public enum LiveMoviesLang: String {
         case ja
     }
     
     /// フックするイベント種別
-    enum WebHookEvent: String {
+    public enum WebHookEvent: String {
         /// ライブ開始
         case liveStart = "livestart"
         /// ライブ終了
@@ -98,6 +98,9 @@ struct TwitCastingAPI {
         return decoder
     }()
     
+    public init() {
+    }
+    
     // MARK: - User
 
     /// ユーザ情報を取得する。
@@ -105,7 +108,7 @@ struct TwitCastingAPI {
     ///   - token: アクセストークン
     ///   - userId: ユーザの id または screen_id
     /// - Returns: TCUserInfoResponse
-    func getUserInfo(token: String, userId: String) async throws -> TCUserInfoResponse {
+    public func getUserInfo(token: String, userId: String) async throws -> TCUserInfoResponse {
         
         let url = URL(string: baseURL + "/users/" + userId)!
         
@@ -120,7 +123,7 @@ struct TwitCastingAPI {
     /// アクセストークンを検証し、ユーザ情報を取得する。
     /// - Parameter token: アクセストークン
     /// - Returns: TCCredentialResponse
-    func verifyCredentials(token: String) async throws -> TCCredentialResponse {
+    public func verifyCredentials(token: String) async throws -> TCCredentialResponse {
         
         let url = URL(string: baseURL + "/verify_credentials")!
         
@@ -140,7 +143,7 @@ struct TwitCastingAPI {
     ///   - size: 画像サイズ
     ///   - position: サムネイル取得位置
     /// - Returns: サムネイル画像の Data
-    func getLiveThumbnailImage(userId: String, size: LiveThumbnailImageSize = .small, position: LiveThumbnailImagePosition = .latest) async throws -> Data {
+    public func getLiveThumbnailImage(userId: String, size: LiveThumbnailImageSize = .small, position: LiveThumbnailImagePosition = .latest) async throws -> Data {
         
         let url = URL(string: baseURL + "/users/\(userId)/live/thumbnail")!
         
@@ -181,7 +184,7 @@ struct TwitCastingAPI {
     ///   - token: アクセストークン
     ///   - movieId: ライブID
     /// - Returns: TCMovieInfoResponse
-    func getMovieInfo(token: String, movieId: String) async throws -> TCMovieInfoResponse {
+    public func getMovieInfo(token: String, movieId: String) async throws -> TCMovieInfoResponse {
         
         let url = URL(string: baseURL + "/movies/\(movieId)")!
         
@@ -201,7 +204,7 @@ struct TwitCastingAPI {
     ///   - limit: 最大取得件数(場合により、指定件数に満たない数の動画を返す可能性があります)（min:1, max:50, default:20）
     ///   - sliceId: このID以前のMovieを取得します。このパラメータを指定した場合はoffsetは無視されます。（min:1 default:none）
     /// - Returns: TCMoviesByUserResponse
-    func getMoviesByUser(token: String, userId: String, offset: Int = 0, limit: Int = 20, sliceId: String? = nil) async throws -> TCMoviesByUserResponse {
+    public func getMoviesByUser(token: String, userId: String, offset: Int = 0, limit: Int = 20, sliceId: String? = nil) async throws -> TCMoviesByUserResponse {
         
         let url = URL(string: baseURL + "/users/\(userId)/movies")!
         
@@ -231,7 +234,7 @@ struct TwitCastingAPI {
     ///   - token:  アクセストークン
     ///   - userId: ユーザの id または screen_id のいずれか
     /// - Returns: TCCurrentLiveResponse
-    func getCurrentLive(token: String, userId: String) async throws -> TCCurrentLiveResponse {
+    public func getCurrentLive(token: String, userId: String) async throws -> TCCurrentLiveResponse {
         
         let url = URL(string: baseURL + "/users/" + userId + "/current_live")!
         
@@ -248,7 +251,7 @@ struct TwitCastingAPI {
     ///   - token: アクセストークン
     ///   - subtitle: テロップ（1〜17文字）
     /// - Returns: TCCurrentLiveSubtitleResponse
-    func setCurrentLiveSubtitle(token: String, subtitle: String) async throws -> TCCurrentLiveSubtitleResponse {
+    public func setCurrentLiveSubtitle(token: String, subtitle: String) async throws -> TCCurrentLiveSubtitleResponse {
         
         let url = URL(string: baseURL + "/movies/subtitle")!
         
@@ -271,7 +274,7 @@ struct TwitCastingAPI {
     /// ユーザーが配信中の場合、ライブのテロップを解除する
     /// - Parameter token: アクセストークン
     /// - Returns: TCCurrentLiveSubtitleResponse
-    func unsetCurrentLiveSubtitle(token: String) async throws -> TCCurrentLiveSubtitleResponse {
+    public func unsetCurrentLiveSubtitle(token: String) async throws -> TCCurrentLiveSubtitleResponse {
         
         let url = URL(string: baseURL + "/movies/subtitle")!
         var request = URLRequest(url: url)
@@ -288,7 +291,7 @@ struct TwitCastingAPI {
     ///   - token: アクセストークン
     ///   - hashtag: ハッシュタグ
     /// - Returns: TCCurrentLiveHashtagResponse
-    func setCurrentLiveHashtag(token: String, hashtag: String) async throws -> TCCurrentLiveHashtagResponse {
+    public func setCurrentLiveHashtag(token: String, hashtag: String) async throws -> TCCurrentLiveHashtagResponse {
         
         let url = URL(string: baseURL + "/movies/hashtag")!
         
@@ -311,7 +314,7 @@ struct TwitCastingAPI {
     /// ユーザーが配信中の場合、ライブのハッシュタグを解除する
     /// - Parameter token: アクセストークン
     /// - Returns: TCCurrentLiveHashtagResponse
-    func unsetCurrentLiveHashtag(token: String) async throws -> TCCurrentLiveHashtagResponse {
+    public func unsetCurrentLiveHashtag(token: String) async throws -> TCCurrentLiveHashtagResponse {
         
         let url = URL(string: baseURL + "/movies/hashtag")!
         
@@ -334,7 +337,7 @@ struct TwitCastingAPI {
     ///   - limit: 取得件数(場合により、指定件数に満たない数のコメントを返す可能性があります)（min:1, max:50, default:10）
     ///   - sliceId: このコメントID以降のコメントを取得します。このパラメータを指定した場合はoffsetは無視されます。（min:1, default:none）
     /// - Returns: TCGetCommentsResponse
-    func getComments(token: String, movieId: String, offset: Int = 0, limit: Int = 10, sliceId: String? = nil) async throws -> TCGetCommentsResponse {
+    public func getComments(token: String, movieId: String, offset: Int = 0, limit: Int = 10, sliceId: String? = nil) async throws -> TCGetCommentsResponse {
         
         let url = URL(string: baseURL + "/movies/\(movieId)/comments")!
         var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
@@ -365,7 +368,7 @@ struct TwitCastingAPI {
     ///   - comment: 投稿するコメント文章（1〜140文字）
     ///   - sns: SNSへの同時投稿(ユーザーがTwitterまたはFacebookと連携しているときのみ有効)。"reply" → 配信者へリプライする形式で投稿, "normal" → 通常の投稿, "none" → SNS投稿無し
     /// - Returns: TCPostCommentResponse
-    func postComment(token: String, movieId: String, comment: String, sns: SNS = .none) async throws -> TCPostCommentResponse {
+    public func postComment(token: String, movieId: String, comment: String, sns: SNS = .none) async throws -> TCPostCommentResponse {
         
         let url = URL(string: baseURL + "/movies/\(movieId)/comments")!
         
@@ -394,7 +397,7 @@ struct TwitCastingAPI {
     ///   - movieId: ライブID
     ///   - commentId: コメントID
     /// - Returns: TCDeleteCommentResponse
-    func deleteComment(token: String, movieId: String, commentId: String) async throws -> TCDeleteCommentResponse {
+    public func deleteComment(token: String, movieId: String, commentId: String) async throws -> TCDeleteCommentResponse {
         
         let url = URL(string: baseURL + "/movies/\(movieId)/comments/\(commentId)")!
         
@@ -414,7 +417,7 @@ struct TwitCastingAPI {
     ///   - token: アクセストークン
     ///   - sliceId: このアイテム送信ID以降に送信されたアイテムを取得します
     /// - Returns: TCGiftsResponse
-    func getGifts(token: String, sliceId: Int = -1) async throws -> TCGiftsResponse {
+    public func getGifts(token: String, sliceId: Int = -1) async throws -> TCGiftsResponse {
         
         let url = URL(string: baseURL + "/gifts")!
         
@@ -439,7 +442,7 @@ struct TwitCastingAPI {
     ///   - userId: ユーザの id または screen_id のいずれか
     ///   - targetUserId: 対象ユーザの id または screen_id
     /// - Returns: TCSupportingStatusResponse
-    func getSupportingStatus(token: String, userId: String, targetUserId: String) async throws -> TCSupportingStatusResponse {
+    public func getSupportingStatus(token: String, userId: String, targetUserId: String) async throws -> TCSupportingStatusResponse {
         
         let url = URL(string: baseURL + "/users/\(userId)/supporting_status")!
         
@@ -461,7 +464,7 @@ struct TwitCastingAPI {
     ///   - token: アクセストークン
     ///   - targetUserIds: 対象ユーザの id または screen_id の配列（配列内の要素数 20 以下）
     /// - Returns: TCSupportUserResponse
-    func supportUser(token: String, targetUserIds: [String]) async throws -> TCSupportUserResponse {
+    public func supportUser(token: String, targetUserIds: [String]) async throws -> TCSupportUserResponse {
         
         let url = URL(string: baseURL + "/support")!
         
@@ -486,7 +489,7 @@ struct TwitCastingAPI {
     ///   - token: アクセストークン
     ///   - targetUserIds: 対象ユーザの id または screen_id の配列
     /// - Returns: TCUnsupportUserResponse
-    func unsupportUser(token: String, targetUserIds: [String]) async throws -> TCUnsupportUserResponse {
+    public func unsupportUser(token: String, targetUserIds: [String]) async throws -> TCUnsupportUserResponse {
         
         let url = URL(string: baseURL + "/unsupport")!
         
@@ -513,7 +516,7 @@ struct TwitCastingAPI {
     ///   - offset: 先頭からの位置（min:0, default:0）
     ///   - limit: 取得件数（min:1, max:20, default:20）
     /// - Returns: TCSupportingListResponse
-    func supportingList(token: String, userId: String, offset: Int = 0, limit: Int = 20) async throws -> TCSupportingListResponse {
+    public func supportingList(token: String, userId: String, offset: Int = 0, limit: Int = 20) async throws -> TCSupportingListResponse {
         
         let url = URL(string: baseURL + "/users/\(userId)/supporting")!
         
@@ -539,7 +542,7 @@ struct TwitCastingAPI {
     ///   - limit: 取得件数（min:1, max:20, default:20）
     ///   - sort: ソート順（新着順: "new", 貢献度順: "ranking"）
     /// - Returns: TCSupporterListResponse
-    func supporterList(token: String, userId: String, offset: Int = 0, limit: Int = 20, sort: SupporterSort) async throws -> TCSupporterListResponse {
+    public func supporterList(token: String, userId: String, offset: Int = 0, limit: Int = 20, sort: SupporterSort) async throws -> TCSupporterListResponse {
         
         let url = URL(string: baseURL + "/users/\(userId)/supporters")!
         
@@ -565,7 +568,7 @@ struct TwitCastingAPI {
     ///   - token: アクセストークン
     ///   - lang: 検索対象の言語
     /// - Returns: TCCategoryResponse
-    func getCategories(token: String, lang: CategoryLang) async throws -> TCCategoryResponse {
+    public func getCategories(token: String, lang: CategoryLang) async throws -> TCCategoryResponse {
         
         let url = URL(string: baseURL + "/categories")!
         
@@ -591,7 +594,7 @@ struct TwitCastingAPI {
     ///   - limit: 取得件数（min: 1, max: 50, default: 10）
     ///   - lang: 検索対象のユーザの言語設定（現在 "ja" のみ対応）
     /// - Returns: TCUsersResponse
-    func searchUsers(token: String, words: String, limit: Int = 10, lang: UsersLang = .ja) async throws -> TCUsersResponse {
+    public func searchUsers(token: String, words: String, limit: Int = 10, lang: UsersLang = .ja) async throws -> TCUsersResponse {
         
         let url = URL(string: baseURL + "/search/users")!
         
@@ -618,7 +621,7 @@ struct TwitCastingAPI {
     ///   - context: type=tag or word → スペース区切りで複数単語のAND検索. type=category → サブカテゴリID. type=new or recommend → 不要
     ///   - lang: 検索対象のライブ配信者の言語設定（現在 "ja" のみ対応）
     /// - Returns: TCLiveMoviesResponse
-    func searchLiveMovies(token: String, limit: Int = 10, type: LiveMoviesType, context: String?, lang: LiveMoviesLang = .ja) async throws -> TCLiveMoviesResponse {
+    public func searchLiveMovies(token: String, limit: Int = 10, type: LiveMoviesType, context: String?, lang: LiveMoviesLang = .ja) async throws -> TCLiveMoviesResponse {
         
         let url = URL(string: baseURL + "/search/lives")!
         
@@ -652,7 +655,7 @@ struct TwitCastingAPI {
     ///   - offset: 先頭からの位置（userId の指定がない場合のみ有効）
     ///   - userId: 対象ユーザのID
     /// - Returns: TCWebHookListResponse
-    func getWebHook(clientId: String, clientSecret: String, limit: Int = 50, offset: Int = 0, userId: String? = nil) async throws -> TCWebHookListResponse {
+    public func getWebHook(clientId: String, clientSecret: String, limit: Int = 50, offset: Int = 0, userId: String? = nil) async throws -> TCWebHookListResponse {
         
         let url = URL(string: baseURL + "/webhooks")!
         
@@ -684,7 +687,7 @@ struct TwitCastingAPI {
     ///   - userId: ユーザID
     ///   - events: フックするイベント種別(ライブ開始:"livestart", ライブ終了:"liveend")の配列
     /// - Returns: TCRegisterWebHookResponse
-    func registerWebHook(clientId: String, clientSecret: String, userId: String, events: [WebHookEvent]) async throws -> TCRegisterWebHookResponse {
+    public func registerWebHook(clientId: String, clientSecret: String, userId: String, events: [WebHookEvent]) async throws -> TCRegisterWebHookResponse {
         
         let url = URL(string: baseURL + "/webhooks")!
         
@@ -719,7 +722,7 @@ struct TwitCastingAPI {
     ///   - userId: ユーザID
     ///   - events: フックを削除するイベント種別(ライブ開始:"livestart", ライブ終了:"liveend")の配列
     /// - Returns: TCRemoveWebHookResponse
-    func removeWebHook(clientId: String, clientSecret: String, userId: String, events: [WebHookEvent]) async throws -> TCRemoveWebHookResponse {
+    public func removeWebHook(clientId: String, clientSecret: String, userId: String, events: [WebHookEvent]) async throws -> TCRemoveWebHookResponse {
         
         let url = URL(string: baseURL + "/webhooks")!
         
@@ -751,7 +754,7 @@ struct TwitCastingAPI {
     /// アクセストークンに紐づくユーザの配信用のURL(RTMP)を取得する。
     /// - Parameter token: アクセストークン
     /// - Returns: TCRTMPUrlResponse
-    func getRTMPUrl(token: String) async throws -> TCRTMPUrlResponse {
+    public func getRTMPUrl(token: String) async throws -> TCRTMPUrlResponse {
         
         let url = URL(string: baseURL + "/rtmp_url")!
         
@@ -766,7 +769,7 @@ struct TwitCastingAPI {
     /// アクセストークンに紐づくユーザの配信用のURL (WebM, WebSocket)を取得する。
     /// - Parameter token: アクセストークン
     /// - Returns: TCWebMUrlResponse
-    func getWebMUrl(token: String) async throws -> TCWebMUrlResponse {
+    public func getWebMUrl(token: String) async throws -> TCWebMUrlResponse {
         
         let url = URL(string: baseURL + "/webm_url")!
         

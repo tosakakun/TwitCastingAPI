@@ -8,11 +8,11 @@
 import Foundation
 
 /// Get WebHook List のレスポンス
-struct TCWebHookListResponse: Codable {
+public struct TCWebHookListResponse: Codable {
     
     /// 登録済みWebHook件数
-    let allCount: Int
+    public let allCount: Int
     /// WebHookオブジェクト の配列
-    let webhooks: [TCWebHook]
+    public let webhooks: [TCWebHook]
     
 }

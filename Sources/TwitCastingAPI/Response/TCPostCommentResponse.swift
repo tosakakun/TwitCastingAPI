@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct TCPostCommentResponse: Codable {
+public struct TCPostCommentResponse: Codable {
     
     /// ライブID
-    let movieId: String
+    public let movieId: String
     /// 総コメント数
-    let allCount: Int
+    public let allCount: Int
     /// Commentオブジェクト
-    let comment: TCComment
+    public let comment: TCComment
     
 }

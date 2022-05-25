@@ -8,11 +8,11 @@
 import Foundation
 
 /// Remove WebHook のレスポンス
-struct TCRemoveWebHookResponse: Codable {
+public struct TCRemoveWebHookResponse: Codable {
     
     /// ユーザID
-    let userId: String
+    public let userId: String
     /// 削除されたイベント種別(ライブ開始:"livestart", ライブ終了:"liveend")の配列
-    let deletedEvents: [String]
+    public let deletedEvents: [String]
     
 }

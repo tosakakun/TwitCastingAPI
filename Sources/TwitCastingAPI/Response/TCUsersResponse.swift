@@ -8,9 +8,9 @@
 import Foundation
 
 /// ユーザー検索のレスポンス
-struct TCUsersResponse: Codable {
+public struct TCUsersResponse: Codable {
     
     /// Userオブジェクトの配列
-    let users: [TCUser]
+    public let users: [TCUser]
     
 }

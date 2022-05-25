@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct TCSupportingListResponse: Codable {
+public struct TCSupportingListResponse: Codable {
     
     /// 全レコード数(実際に取得できる件数と異なる場合があります)
-    let total: Int
+    public let total: Int
     /// SupporterUserオブジェクトの配列
-    let supporting: [TCSupporterUser]
+    public let supporting: [TCSupporterUser]
 
 }

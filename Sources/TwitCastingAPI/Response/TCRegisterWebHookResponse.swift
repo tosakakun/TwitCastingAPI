@@ -8,11 +8,11 @@
 import Foundation
 
 /// Register WebHook のレスポンス
-struct TCRegisterWebHookResponse: Codable {
+public struct TCRegisterWebHookResponse: Codable {
     
     /// ユーザID
-    let userId: String
+    public let userId: String
     /// 登録されたイベント種別(ライブ開始:"livestart", ライブ終了:"liveend")の配列
-    let addedEvents: [String]
+    public let addedEvents: [String]
     
 }

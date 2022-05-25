@@ -8,13 +8,13 @@
 import Foundation
 
 /// Get User Info のレスポンス
-struct TCUserInfoResponse: Codable {
+public struct TCUserInfoResponse: Codable {
     
     /// Userオブジェクト
-    let user: TCUser
+    public let user: TCUser
     /// ユーザーのサポーター数
-    let supporterCount: Int
+    public let supporterCount: Int
     /// ユーザーがサポートしている数
-    let supportingCount: Int
+    public let supportingCount: Int
 
 }

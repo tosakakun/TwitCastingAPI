@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct TCCurrentLiveSubtitleResponse: Codable {
+public struct TCCurrentLiveSubtitleResponse: Codable {
     
     /// ライブID
-    let movieId: String
+    public let movieId: String
     /// テロップ
-    let subtitle: String?
+    public let subtitle: String?
     
 }

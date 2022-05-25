@@ -8,13 +8,13 @@
 import Foundation
 
 // Get Current Live のレスポンス
-struct TCCurrentLiveResponse: Codable {
+public struct TCCurrentLiveResponse: Codable {
     
     /// Movieオブジェクト
-    let movie: TCMovie
+    public let movie: TCMovie
     /// 配信者のユーザ情報 Userオブジェクト
-    let broadcaster: TCUser
+    public let broadcaster: TCUser
     /// 設定されているタグの配列
-    let tags: [String]
+    public let tags: [String]
     
 }

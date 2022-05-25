@@ -7,19 +7,19 @@
 
 import Foundation
 
-struct TCMovieInfoResponse: Codable {
+public struct TCMovieInfoResponse: Codable {
     
     /// Movie オブジェクト
-    let movie: TCMovie
+    public let movie: TCMovie
     /// 配信者のユーザ情報 Userオブジェクト
-    let broadcaster: TCUser
+    public let broadcaster: TCUser
     /// 設定されているタグの配列
-    let tags: [String]
+    public let tags: [String]
     
 }
 
 extension TCMovieInfoResponse: Identifiable {
-    var id: String {
+    public var id: String {
         movie.id
     }
 }

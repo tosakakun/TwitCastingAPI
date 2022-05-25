@@ -8,13 +8,13 @@
 import Foundation
 
 /// 配信サブカテゴリを表すオブジェクト
-struct TCSubCategory: Codable, Identifiable {
+public struct TCSubCategory: Codable, Identifiable {
     
     /// サブカテゴリID
-    let id: String
+    public let id: String
     /// サブカテゴリ名
-    let name: String
+    public let name: String
     /// サブカテゴリ配信数
-    let count: Int
+    public let count: Int
     
 }

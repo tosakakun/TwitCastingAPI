@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct TCDeleteCommentResponse: Codable {
+public struct TCDeleteCommentResponse: Codable {
     
     /// 削除したコメントのID
-    let commentId: String
+    public let commentId: String
     
 }

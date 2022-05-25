@@ -8,9 +8,9 @@
 import Foundation
 
 /// 配信中のライブ検索のレスポンス
-struct TCLiveMoviesResponse: Codable {
+public struct TCLiveMoviesResponse: Codable {
     
     /// /movies/:movie_id と同一のMovieオブジェクトの配列
-    let movies: [TCMovieInfoResponse]
+    public let movies: [TCMovieInfoResponse]
     
 }

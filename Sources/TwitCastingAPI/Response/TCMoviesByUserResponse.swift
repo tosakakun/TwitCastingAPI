@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct TCMoviesByUserResponse: Codable {
+public struct TCMoviesByUserResponse: Codable {
     
     /// 指定フィルター条件での総件数
-    let totalCount: Int
+    public let totalCount: Int
     /// Movieオブジェクト の配列
-    let movies: [TCMovie]
+    public let movies: [TCMovie]
     
 }

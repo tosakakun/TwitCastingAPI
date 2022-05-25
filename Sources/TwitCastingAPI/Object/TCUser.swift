@@ -8,22 +8,22 @@
 import Foundation
 
 /// ユーザを表すオブジェクト
-struct TCUser: Codable, Identifiable {
+public struct TCUser: Codable, Identifiable {
     /// ユーザーID
-    let id: String
+    public let id: String
     /// id同様にユーザを特定する識別子ですが、screen_idはユーザによって変更される場合があります。
-    let screenId: String
+    public let screenId: String
     /// ヒューマンリーダブルなユーザの名前
-    let name: String
+    public let name: String
     /// ユーザアイコンのURL
-    let image: String
+    public let image: String
     /// プロフィール文章
-    let profile: String
+    public let profile: String
     /// ユーザのレベル
-    let level: Int
+    public let level: Int
     /// ユーザが最後に配信したライブのID
-    let lastMovieId: String?
+    public let lastMovieId: String?
     /// 現在ライブ配信中かどうか
-    let isLive: Bool
+    public let isLive: Bool
 
 }

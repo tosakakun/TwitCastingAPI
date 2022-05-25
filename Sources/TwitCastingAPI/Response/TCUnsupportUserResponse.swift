@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct TCUnsupportUserResponse: Codable {
+public struct TCUnsupportUserResponse: Codable {
     
     /// サポーター解除を行った件数
-    let removedCount: Int
+    public let removedCount: Int
     
 }

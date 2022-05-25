@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct TCCategoryResponse: Codable {
+public struct TCCategoryResponse: Codable {
     
     /// Categoryオブジェクトの配列
-    let categories: [TCCategory]
+    public let categories: [TCCategory]
     
 }

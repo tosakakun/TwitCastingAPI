@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct TCSupportingStatusResponse: Codable {
+public struct TCSupportingStatusResponse: Codable {
     
     /// サポーターかどうか
-    let isSupporting: Bool
+    public let isSupporting: Bool
     /// サポートした日時のunixタイムスタンプ
-    let supported: Int?
+    public let supported: Int?
     /// 対象ユーザ情報 Userオブジェクト
-    let targetUser: TCUser
+    public let targetUser: TCUser
     
 }

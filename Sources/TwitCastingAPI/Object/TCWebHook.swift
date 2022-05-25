@@ -8,11 +8,11 @@
 import Foundation
 
 /// WebHookを表すオブジェクト
-struct TCWebHook: Codable {
+public struct TCWebHook: Codable {
     
     /// ユーザID
-    let userId: String
+    public let userId: String
     /// フックするイベント種別(ライブ開始:"livestart", ライブ終了:"liveend")
-    let event: String
+    public let event: String
     
 }

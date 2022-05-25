@@ -8,30 +8,30 @@
 import Foundation
 
 /// アイテムを表すオブジェクト
-struct TCGift: Codable, Identifiable {
+public struct TCGift: Codable, Identifiable {
     
     /// アイテム送信ID
-    let id: Int
+    public let id: Int
     /// アイテム送信時のメッセージ本文
-    let message: String
+    public let message: String
     /// アイテム画像のURL
-    let itemImage: String
+    public let itemImage: String
     /// アイテム送信時に選択された画像があれば画像のURL
-    let itemSubImage: String?
+    public let itemSubImage: String?
     /// アイテムのID
-    let itemId: String
+    public let itemId: String
     /// アイテムのMP
     /// ドキュメントでは item_mp の型は、string となっているが、実際は、int の値が返ってきている
-    let itemMp: Int
+    public let itemMp: Int
     /// アイテム名
-    let itemName: String
+    public let itemName: String
     /// ユーザアイコンのURL
-    let userImage: String
+    public let userImage: String
     /// アイテムが送信された時点でのユーザーの screen_id
-    let userScreenId: String
+    public let userScreenId: String
     /// ヒューマンリーダブルな screen_id
-    let userScreenName: String
+    public let userScreenName: String
     /// ヒューマンリーダブルなユーザの名前
-    let userName: String
+    public let userName: String
     
 }

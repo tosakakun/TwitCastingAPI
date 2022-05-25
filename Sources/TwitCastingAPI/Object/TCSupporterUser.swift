@@ -8,41 +8,41 @@
 import Foundation
 
 /// サポーターユーザを表すオブジェクト (point, supported, total_point を除いて Userオブジェクト と同じです)
-struct TCSupporterUser: Codable, Identifiable {
+public struct TCSupporterUser: Codable, Identifiable {
     
     /// ユーザーID
-    let id: String
+    public let id: String
     /// id同様にユーザを特定する識別子ですが、screen_idはユーザによって変更される場合があります。
-    let screenId: String
+    public let screenId: String
     /// ヒューマンリーダブルなユーザの名前
-    let name: String
+    public let name: String
     /// ユーザアイコンのURL
-    let image: String
+    public let image: String
     /// プロフィール文章
-    let profile: String
+    public let profile: String
     /// ユーザのレベル
-    let level: Int
+    public let level: Int
     /// ユーザが最後に配信したライブのID
-    let lastMovieId: String?
+    public let lastMovieId: String?
     /// 現在ライブ配信中かどうか
-    let isLive: Bool
+    public let isLive: Bool
     /// サポートした日時のunixタイムスタンプ
-    let supported: Int
+    public let supported: Int
     /// ユーザをサポートしている人数
-    let supporterCount: Int
+    public let supporterCount: Int
     /// ユーザがサポートしている人数
-    let supportingCount: Int
+    public let supportingCount: Int
     /// アイテム・スコア
-    let point: Int
+    public let point: Int
     /// 累計スコア
-    let totalPoint: Int
+    public let totalPoint: Int
     
 }
 
 extension TCSupporterUser {
     
     /// ユーザを表すオブジェクトを取得する
-    var user: TCUser {
+    public var user: TCUser {
         TCUser(id: id, screenId: screenId, name: name, image: image, profile: profile, level: level, lastMovieId: lastMovieId, isLive: isLive)
     }
     

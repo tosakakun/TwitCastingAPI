@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct TCSupportUserResponse: Codable {
+public struct TCSupportUserResponse: Codable {
     
     /// サポーター登録を行った件数
-    let addedCount: Int
+    public let addedCount: Int
     
 }

@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct TCCurrentLiveHashtagResponse: Codable {
+public struct TCCurrentLiveHashtagResponse: Codable {
     
     /// ライブID
-    let movieId: String
+    public let movieId: String
     /// ハッシュタグ
-    let hashtag: String?
+    public let hashtag: String?
     
 }

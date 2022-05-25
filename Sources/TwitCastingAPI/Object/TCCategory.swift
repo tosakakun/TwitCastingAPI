@@ -8,13 +8,13 @@
 import Foundation
 
 /// 配信カテゴリを表すオブジェクト
-struct TCCategory: Codable, Identifiable {
+public struct TCCategory: Codable, Identifiable {
     
     /// カテゴリID
-    let id: String
+    public let id: String
     /// カテゴリ名
-    let name: String
+    public let name: String
     /// Sub categoryオブジェクトの配列
-    let subCategories: [TCSubCategory]
+    public let subCategories: [TCSubCategory]
     
 }

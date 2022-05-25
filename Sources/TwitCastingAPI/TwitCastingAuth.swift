@@ -10,26 +10,26 @@ import Foundation
 import AuthenticationServices
 import Security
 
-class TwitCastingAuth: NSObject, ObservableObject {
+public class TwitCastingAuth: NSObject, ObservableObject {
 
     /// アクセストークン
-    @Published var token = "" {
+    @Published public var token = "" {
         didSet {
             save(token: token)
         }
     }
     
     /// トークン失効日時
-    var expirationDate = 0.0 {
+    public var expirationDate = 0.0 {
         didSet {
             save(expirationDate: expirationDate)
         }
     }
     
     /// Verify Credentials のレスポンス
-    @Published var credentialResponse: TCCredentialResponse?
+    @Published public var credentialResponse: TCCredentialResponse?
     /// 認証処理中のエラー
-    @Published var error: TCError?
+    @Published public var error: TCError?
 
     /// クライアントID
     private let clientId: String
@@ -42,7 +42,7 @@ class TwitCastingAuth: NSObject, ObservableObject {
     /// - Parameters:
     ///   - clientId: クライアントID
     ///   - callbackURLScheme: コールバックURLスキーム
-    init(clientId: String, callbackURLScheme: String) {
+    public init(clientId: String, callbackURLScheme: String) {
         
         self.clientId = clientId
         self.callbackURLScheme = callbackURLScheme
@@ -66,7 +66,7 @@ class TwitCastingAuth: NSObject, ObservableObject {
     }
 
     /// ログインする
-    func login() {
+    public func login() {
         
         // CSRFトークンを生成
         self.csrfToken = createCSRFToken(count: 16)
@@ -101,7 +101,7 @@ class TwitCastingAuth: NSObject, ObservableObject {
     }
     
     /// ログアウト
-    func logout() {
+    public func logout() {
         self.token = ""
         self.expirationDate = 0
         self.credentialResponse = nil
@@ -261,7 +261,7 @@ class TwitCastingAuth: NSObject, ObservableObject {
 // MARK: - ASWebAuthenticationPresentationContextProviding
 extension TwitCastingAuth: ASWebAuthenticationPresentationContextProviding {
     
-    func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
+    public func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
         ASPresentationAnchor()
     }
     

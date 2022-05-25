@@ -7,19 +7,19 @@
 
 import Foundation
 
-struct TCGiftsResponse: Codable {
+public struct TCGiftsResponse: Codable {
     
     /// 次にAPIを呼び出すときに指定する slice_id
-    let sliceId: Int
+    public let sliceId: Int
     /// Giftオブジェクトの配列
-    let gifts: [TCGift]
+    public let gifts: [TCGift]
     
     enum CodingKeys: String, CodingKey {
         case sliceId
         case gifts
     }
     
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
         

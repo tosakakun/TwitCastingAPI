@@ -8,15 +8,15 @@
 import Foundation
 
 /// Verify Credentials のレスポンス
-struct TCCredentialResponse: Codable {
+public struct TCCredentialResponse: Codable {
     
     /// アクセストークンに紐づくアプリケーション情報 Appオブジェクト
-    let app: TCApp
+    public let app: TCApp
     /// アクセストークンに紐づくユーザ情報 Userオブジェクト
-    let user: TCUser
+    public let user: TCUser
     /// ユーザーのサポーターの数
-    let supporterCount: Int
+    public let supporterCount: Int
     /// ユーザーがサポートしている数
-    let supportingCount: Int
+    public let supportingCount: Int
     
 }
