@@ -17,4 +17,15 @@ public struct TCCategory: Codable, Identifiable {
     /// Sub categoryオブジェクトの配列
     public let subCategories: [TCSubCategory]
     
+    /// イニシャライザ
+    /// - Parameters:
+    ///   - id: カテゴリID
+    ///   - name: カテゴリ名
+    ///   - subCategories: Sub categoryオブジェクトの配列
+    public init(id: String, name: String, subCategories: [TCSubCategory]) {
+        self.id = id
+        self.name = name
+        self.subCategories = subCategories
+    }
+
 }

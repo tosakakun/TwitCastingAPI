@@ -15,4 +15,13 @@ public struct TCWebHookListResponse: Codable {
     /// WebHookオブジェクト の配列
     public let webhooks: [TCWebHook]
     
+    /// イニシャライザ
+    /// - Parameters:
+    ///   - allCount: 登録済みWebHook件数
+    ///   - webhooks: WebHookオブジェクト の配列
+    public init(allCount: Int, webhooks: [TCWebHook]) {
+        self.allCount = allCount
+        self.webhooks = webhooks
+    }
+
 }

@@ -53,4 +53,51 @@ public struct TCMovie: Codable, Identifiable {
     /// HTTP Live Streaming再生用のURL
     public let hlsUrl: String?
     
+    /// イニシャライザ
+    /// - Parameters:
+    ///   - id: ライブID
+    ///   - userId: ライブ配信者のユーザーID
+    ///   - title: タイトル
+    ///   - subtitle: テロップ
+    ///   - lastOwnerComment: ライブ配信者の最新コメントの文章
+    ///   - category: カテゴリID
+    ///   - link: ライブ(録画)へのリンクURL
+    ///   - isLive: ライブ配信中かどうか
+    ///   - isRecorded: 録画が公開されているかどうか
+    ///   - commentCount: 総コメント数
+    ///   - largeThumbnail: サムネイル画像(大)のURL
+    ///   - smallThumbnail: サムネイル画像(小)のURL
+    ///   - country: 配信地域(国コード)
+    ///   - duration: 配信時間(秒)
+    ///   - created: 配信開始日時のunixタイムスタンプ
+    ///   - isCollabo: コラボ配信かどうか
+    ///   - isProtected: 合言葉配信かどうか
+    ///   - maxViewCount: 最大同時視聴数(配信中の場合0)
+    ///   - currentViewCount: 現在の同時視聴者数(配信中ではない場合0)
+    ///   - totalViewCount: 総視聴者数
+    ///   - hlsUrl: HTTP Live Streaming再生用のURL
+    public init(id: String, userId: String, title: String, subtitle: String?, lastOwnerComment: String?, category: String?, link: String, isLive: Bool, isRecorded: Bool, commentCount: Int, largeThumbnail: String, smallThumbnail: String, country: String, duration: Int, created: Int, isCollabo: Bool, isProtected: Bool, maxViewCount: Int, currentViewCount: Int, totalViewCount: Int, hlsUrl: String?) {
+        self.id = id
+        self.userId = userId
+        self.title = title
+        self.subtitle = subtitle
+        self.lastOwnerComment = lastOwnerComment
+        self.category = category
+        self.link = link
+        self.isLive = isLive
+        self.isRecorded = isRecorded
+        self.commentCount = commentCount
+        self.largeThumbnail = largeThumbnail
+        self.smallThumbnail = smallThumbnail
+        self.country = country
+        self.duration = duration
+        self.created = created
+        self.isCollabo = isCollabo
+        self.isProtected = isProtected
+        self.maxViewCount = maxViewCount
+        self.currentViewCount = currentViewCount
+        self.totalViewCount = totalViewCount
+        self.hlsUrl = hlsUrl
+    }
+
 }

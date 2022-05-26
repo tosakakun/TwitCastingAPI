@@ -98,6 +98,7 @@ public struct TwitCastingAPI {
         return decoder
     }()
     
+    /// イニシャライザ
     public init() {
     }
     

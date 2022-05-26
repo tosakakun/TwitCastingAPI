@@ -17,4 +17,15 @@ public struct TCSubCategory: Codable, Identifiable {
     /// サブカテゴリ配信数
     public let count: Int
     
+    /// イニシャライザ
+    /// - Parameters:
+    ///   - id: サブカテゴリID
+    ///   - name: サブカテゴリ名
+    ///   - count: サブカテゴリ配信数
+    public init(id: String, name: String, count: Int) {
+        self.id = id
+        self.name = name
+        self.count = count
+    }
+
 }

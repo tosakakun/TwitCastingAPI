@@ -15,4 +15,13 @@ public struct TCWebMUrlResponse: Codable {
     /// WebM配信用URL
     public let url: String?
     
+    /// イニシャライザ
+    /// - Parameters:
+    ///   - enabled: WebM配信が有効かどうか
+    ///   - url: WebM配信用URL
+    public init(enabled: Bool, url: String?) {
+        self.enabled = enabled
+        self.url = url
+    }
+
 }

@@ -17,4 +17,15 @@ public struct TCApp: Codable {
     /// アプリケーション開発者のユーザID
     public let ownerUserId: String
 
+    /// イニシャライザ
+    /// - Parameters:
+    ///   - clientId: アプリケーションのクライアントID
+    ///   - name: アプリケーション名
+    ///   - ownerUserId: アプリケーション開発者のユーザID
+    public init(clientId: String, name: String, ownerUserId: String) {
+        self.clientId = clientId
+        self.name = name
+        self.ownerUserId = ownerUserId
+    }
+    
 }

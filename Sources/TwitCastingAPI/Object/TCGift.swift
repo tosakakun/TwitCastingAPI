@@ -34,4 +34,30 @@ public struct TCGift: Codable, Identifiable {
     /// ヒューマンリーダブルなユーザの名前
     public let userName: String
     
+    /// イニシャライザ
+    /// - Parameters:
+    ///   - id: アイテム送信ID
+    ///   - message: アイテム送信時のメッセージ本文
+    ///   - itemImage: アイテム画像のURL
+    ///   - itemSubImage: アイテム送信時に選択された画像があれば画像のURL
+    ///   - itemId: アイテムのID
+    ///   - itemMp: アイテムのMP
+    ///   - itemName: アイテム名
+    ///   - userImage: ユーザアイコンのURL
+    ///   - userScreenId: アイテムが送信された時点でのユーザーの screen_id
+    ///   - userScreenName: ヒューマンリーダブルな screen_id
+    ///   - userName: ヒューマンリーダブルなユーザの名前
+    public init(id: Int, message: String, itemImage: String, itemSubImage: String?, itemId: String, itemMp: Int, itemName: String, userImage: String, userScreenId: String, userScreenName: String, userName: String) {
+        self.id = id
+        self.message = message
+        self.itemImage = itemImage
+        self.itemSubImage = itemSubImage
+        self.itemId = itemId
+        self.itemMp = itemMp
+        self.itemName = itemName
+        self.userImage = userImage
+        self.userScreenId = userScreenId
+        self.userScreenName = userScreenName
+        self.userName = userName
+    }
 }

@@ -37,6 +37,37 @@ public struct TCSupporterUser: Codable, Identifiable {
     /// 累計スコア
     public let totalPoint: Int
     
+    /// イニシャライザ
+    /// - Parameters:
+    ///   - id: ユーザーID
+    ///   - screenId: id同様にユーザを特定する識別子ですが、screen_idはユーザによって変更される場合があります。
+    ///   - name: ヒューマンリーダブルなユーザの名前
+    ///   - image: ユーザアイコンのURL
+    ///   - profile: プロフィール文章
+    ///   - level: ユーザのレベル
+    ///   - lastMovieId: ユーザが最後に配信したライブのID
+    ///   - isLive: 現在ライブ配信中かどうか
+    ///   - supported: サポートした日時のunixタイムスタンプ
+    ///   - supporterCount: ユーザをサポートしている人数
+    ///   - supportingCount: ユーザがサポートしている人数
+    ///   - point: アイテム・スコア
+    ///   - totalPoint: 累計スコア
+    public init(id: String, screenId: String, name: String, image: String, profile: String, level: Int, lastMovieId: String?, isLive: Bool, supported: Int, supporterCount: Int, supportingCount: Int, point: Int, totalPoint: Int) {
+        self.id = id
+        self.screenId = screenId
+        self.name = name
+        self.image = image
+        self.profile = profile
+        self.level = level
+        self.lastMovieId = lastMovieId
+        self.isLive = isLive
+        self.supported = supported
+        self.supporterCount = supporterCount
+        self.supportingCount = supportingCount
+        self.point = point
+        self.totalPoint = totalPoint
+    }
+
 }
 
 extension TCSupporterUser {

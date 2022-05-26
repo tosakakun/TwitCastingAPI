@@ -19,4 +19,17 @@ public struct TCComment: Codable, Identifiable {
     /// コメント投稿日時のunixタイムスタンプ
     public let created: Int
     
+    /// イニシャライザ
+    /// - Parameters:
+    ///   - id: コメントID
+    ///   - message: コメント本文
+    ///   - fromUser: コメント投稿者の情報 Userオブジェクト
+    ///   - created: コメント投稿日時のunixタイムスタンプ
+    public init(id: String, message: String, fromUser: TCUser, created: Int) {
+        self.id = id
+        self.message = message
+        self.fromUser = fromUser
+        self.created = created
+    }
+
 }

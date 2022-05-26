@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Get Movie Info のレスポンス
 public struct TCMovieInfoResponse: Codable {
     
     /// Movie オブジェクト
@@ -15,6 +16,17 @@ public struct TCMovieInfoResponse: Codable {
     public let broadcaster: TCUser
     /// 設定されているタグの配列
     public let tags: [String]
+    
+    /// イニシャライザ
+    /// - Parameters:
+    ///   - movie: Movie オブジェクト
+    ///   - broadcaster: 配信者のユーザ情報 Userオブジェクト
+    ///   - tags: 設定されているタグの配列
+    public init(movie: TCMovie, broadcaster: TCUser, tags: [String]) {
+        self.movie = movie
+        self.broadcaster = broadcaster
+        self.tags = tags
+    }
     
 }
 

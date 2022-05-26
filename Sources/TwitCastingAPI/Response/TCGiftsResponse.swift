@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Get Gifts のレスポンス
 public struct TCGiftsResponse: Codable {
     
     /// 次にAPIを呼び出すときに指定する slice_id
@@ -17,6 +18,15 @@ public struct TCGiftsResponse: Codable {
     enum CodingKeys: String, CodingKey {
         case sliceId
         case gifts
+    }
+    
+    /// イニシャライザ
+    /// - Parameters:
+    ///   - sliceId: 次にAPIを呼び出すときに指定する slice_id
+    ///   - gifts: Giftオブジェクトの配列
+    public init(sliceId: Int, gifts: [TCGift]) {
+        self.sliceId = sliceId
+        self.gifts = gifts
     }
     
     public init(from decoder: Decoder) throws {

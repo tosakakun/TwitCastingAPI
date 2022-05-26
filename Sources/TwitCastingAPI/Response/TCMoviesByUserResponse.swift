@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Get Movies by User のレスポンス
 public struct TCMoviesByUserResponse: Codable {
     
     /// 指定フィルター条件での総件数
@@ -14,4 +15,13 @@ public struct TCMoviesByUserResponse: Codable {
     /// Movieオブジェクト の配列
     public let movies: [TCMovie]
     
+    /// イニシャライザ
+    /// - Parameters:
+    ///   - totalCount: 指定フィルター条件での総件数
+    ///   - movies: Movieオブジェクト の配列
+    public init(totalCount: Int, movies: [TCMovie]) {
+        self.totalCount = totalCount
+        self.movies = movies
+    }
+
 }

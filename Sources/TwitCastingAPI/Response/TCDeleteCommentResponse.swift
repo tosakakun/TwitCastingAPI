@@ -7,9 +7,16 @@
 
 import Foundation
 
+/// Delete Comment のレスポンス
 public struct TCDeleteCommentResponse: Codable {
     
     /// 削除したコメントのID
     public let commentId: String
+    
+    /// イニシャライザ
+    /// - Parameter commentId: 削除したコメントのID
+    public init(commentId: String) {
+        self.commentId = commentId
+    }
     
 }

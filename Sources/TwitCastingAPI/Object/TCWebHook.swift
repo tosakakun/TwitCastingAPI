@@ -15,4 +15,13 @@ public struct TCWebHook: Codable {
     /// フックするイベント種別(ライブ開始:"livestart", ライブ終了:"liveend")
     public let event: String
     
+    /// イニシャライザ
+    /// - Parameters:
+    ///   - userId: ユーザID
+    ///   - event: フックするイベント種別(ライブ開始:"livestart", ライブ終了:"liveend")
+    public init(userId: String, event: String) {
+        self.userId = userId
+        self.event = event
+    }
+
 }

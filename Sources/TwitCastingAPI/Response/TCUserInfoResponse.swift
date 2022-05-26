@@ -16,5 +16,16 @@ public struct TCUserInfoResponse: Codable {
     public let supporterCount: Int
     /// ユーザーがサポートしている数
     public let supportingCount: Int
+    
+    /// イニシャライザ
+    /// - Parameters:
+    ///   - user: Userオブジェクト
+    ///   - supporterCount: ユーザーのサポーター数
+    ///   - supportingCount: ユーザーがサポートしている数
+    public init(user: TCUser, supporterCount: Int, supportingCount: Int) {
+        self.user = user
+        self.supporterCount = supporterCount
+        self.supportingCount = supportingCount
+    }
 
 }

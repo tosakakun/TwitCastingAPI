@@ -17,4 +17,15 @@ public struct TCCurrentLiveResponse: Codable {
     /// 設定されているタグの配列
     public let tags: [String]
     
+    /// イニシャライザ
+    /// - Parameters:
+    ///   - movie: Movieオブジェクト
+    ///   - broadcaster: 配信者のユーザ情報 Userオブジェクト
+    ///   - tags: 設定されているタグの配列
+    public init(movie: TCMovie, broadcaster: TCUser, tags: [String]) {
+        self.movie = movie
+        self.broadcaster = broadcaster
+        self.tags = tags
+    }
+    
 }
