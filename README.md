@@ -12,7 +12,7 @@ offical document => [https://apiv2-doc.twitcasting.tv/](https://apiv2-doc.twitca
 ## Installation
 
 ### Swift Package Manager
-Add .package(url: "https://github.com/tosakakun/TwitCastingAPI.git", from: "1.0.0") to your Package.swift file's dependencies.
+Add `.package(url: "https://github.com/tosakakun/TwitCastingAPI.git", from: "1.0.0")` to your `Package.swift` file's dependencies.
 
 ## Usage
 
