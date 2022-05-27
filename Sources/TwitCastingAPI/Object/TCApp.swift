@@ -1,6 +1,6 @@
 //
 //  TCApp.swift
-//  TwitCastingAPIDev
+//  TwitCastingAPI
 //
 //  Created by tosakakun on 2022/04/24.
 //
