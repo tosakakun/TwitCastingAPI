@@ -19,6 +19,9 @@ public class TwitCastingAuth: NSObject, ObservableObject {
         }
     }
     
+    /// トークンが失効するまでの秒数（ログイン直後のみ利用可能。保存していない。）
+    public var expiresIn = 0
+    
     /// トークン失効日時
     public var expirationDate = 0.0 {
         didSet {
@@ -155,13 +158,14 @@ public class TwitCastingAuth: NSObject, ObservableObject {
         }
         
         // トークンが失効するまでの秒数を取得
-        guard let expiresIn = queryItems.filter({ $0.name == "expires_in" }).first?.value else {
+        guard let expiresIn = queryItems.filter({ $0.name == "expires_in" }).first?.value, let intExpiresIn = Int(expiresIn) else {
             print("expiresIn を取得できませんでした")
             return
         }
         
+        self.expiresIn = intExpiresIn
         // トークン執行日時を算出
-        self.expirationDate = Date().timeIntervalSince1970 + (TimeInterval(expiresIn) ?? 0.0)
+        self.expirationDate = Date().timeIntervalSince1970 + TimeInterval(intExpiresIn)
         
     }
     
