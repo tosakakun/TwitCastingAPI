@@ -7,7 +7,7 @@ offical document => [https://apiv2-doc.twitcasting.tv/](https://apiv2-doc.twitca
 ## Requirement
 
 - iOS 15.0+
-- macOS 10.15+
+- macOS 12.0+
 
 ## Installation
 
