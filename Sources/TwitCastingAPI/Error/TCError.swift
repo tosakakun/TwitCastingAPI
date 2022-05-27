@@ -43,8 +43,8 @@ public enum TCError: Error {
 
 extension TCError {
     
-    static func unknownError(messeage: String? = nil) -> TCError {
-        TCError.unknownError(code: 9999, message: messeage ?? "unknown error")
+    static func unknownError(message: String? = nil) -> TCError {
+        TCError.unknownError(code: 9999, message: message ?? "unknown error")
     }
     
     public var localizedDescription: String {

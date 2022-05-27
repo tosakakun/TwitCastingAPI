@@ -166,7 +166,7 @@ public struct TwitCastingAPI {
         let (data, response) = try await URLSession.shared.data(for: request)
     
         guard let httpURLResponse = response as? HTTPURLResponse else {
-            throw TCError.unknownError(messeage: "can not cast to HTTPURLResponse")
+            throw TCError.unknownError(message: "can not cast to HTTPURLResponse")
         }
         
         if httpURLResponse.statusCode == 302,
@@ -266,7 +266,7 @@ public struct TwitCastingAPI {
         let parameters = ["subtitle": subtitle]
         
         guard let data = try? JSONSerialization.data(withJSONObject: parameters) else {
-            throw TCError.unknownError(messeage: "can not serialize parameters")
+            throw TCError.unknownError(message: "can not serialize parameters")
         }
 
         var request = URLRequest(url: url)
@@ -306,7 +306,7 @@ public struct TwitCastingAPI {
         let parameters = ["hashtag": hashtag]
         
         guard let data = try? JSONSerialization.data(withJSONObject: parameters) else {
-            throw TCError.unknownError(messeage: "can not serialize parameters")
+            throw TCError.unknownError(message: "can not serialize parameters")
         }
         
         var request = URLRequest(url: url)
@@ -386,7 +386,7 @@ public struct TwitCastingAPI {
         ]
         
         guard let data = try? JSONSerialization.data(withJSONObject: parameters) else {
-            throw TCError.unknownError(messeage: "can not serialize parameters")
+            throw TCError.unknownError(message: "can not serialize parameters")
         }
 
         var request = URLRequest(url: url)
@@ -479,7 +479,7 @@ public struct TwitCastingAPI {
         let parameters = ["target_user_ids": targetUserIds]
         
         guard let data = try? JSONSerialization.data(withJSONObject: parameters) else {
-            throw TCError.unknownError(messeage: "can not serialize parameters")
+            throw TCError.unknownError(message: "can not serialize parameters")
         }
         
         var request = URLRequest(url: url)
@@ -504,7 +504,7 @@ public struct TwitCastingAPI {
         let parameters = ["target_user_ids": targetUserIds]
         
         guard let data = try? JSONSerialization.data(withJSONObject: parameters) else {
-            throw TCError.unknownError(messeage: "can not serialize parameters")
+            throw TCError.unknownError(message: "can not serialize parameters")
         }
         
         var request = URLRequest(url: url)
@@ -709,7 +709,7 @@ public struct TwitCastingAPI {
         ]
         
         guard let data = try? JSONSerialization.data(withJSONObject: parameters) else {
-            throw TCError.unknownError(messeage: "can not serialize parameters")
+            throw TCError.unknownError(message: "can not serialize parameters")
         }
         
         var request = URLRequest(url: url)
@@ -744,7 +744,7 @@ public struct TwitCastingAPI {
         ]
         
         guard let data = try? JSONSerialization.data(withJSONObject: parameters) else {
-            throw TCError.unknownError(messeage: "can not serialize parameters")
+            throw TCError.unknownError(message: "can not serialize parameters")
         }
         
         var request = URLRequest(url: url)
@@ -820,7 +820,7 @@ public struct TwitCastingAPI {
         let client = "\(clientId):\(clientSecret)"
         
         guard let clientData = client.data(using: .utf8) else {
-            throw TCError.unknownError(messeage: "can not convert clientId and clientSecret into data.")
+            throw TCError.unknownError(message: "can not convert clientId and clientSecret into data.")
         }
         
         let encodeString = clientData.base64EncodedString()
@@ -844,7 +844,7 @@ public struct TwitCastingAPI {
         let (data, response) = try await URLSession.shared.data(for: request)
         
         guard let httpURLResponse = response as? HTTPURLResponse else {
-            throw TCError.unknownError(messeage: "can not cast to HTTPURLResponse")
+            throw TCError.unknownError(message: "can not cast to HTTPURLResponse")
         }
         
         // レスポンスヘッダの情報を取得
@@ -859,14 +859,14 @@ public struct TwitCastingAPI {
                 throw errorResponse.error
             } else {
                 // 不明なエラー
-                throw TCError.unknownError(messeage: "can not decode error response")
+                throw TCError.unknownError(message: "can not decode error response")
             }
             
         }
         
         // ツイキャスAPIのレスポンスをデコードする
         guard let object = try? decoder.decode(type, from: data) else {
-            throw TCError.unknownError(messeage: "can not decode response")
+            throw TCError.unknownError(message: "can not decode response")
         }
             
         return object

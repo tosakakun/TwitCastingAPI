@@ -189,7 +189,7 @@ public class TwitCastingAuth: NSObject, ObservableObject {
             logout()
         } catch {
             print(error.localizedDescription)
-            self.error = TCError.unknownError(messeage: error.localizedDescription)
+            self.error = TCError.unknownError(message: error.localizedDescription)
             // エラーが発生したらログアウト
             logout()
         }
