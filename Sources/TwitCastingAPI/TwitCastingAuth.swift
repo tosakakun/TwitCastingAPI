@@ -149,6 +149,11 @@ public class TwitCastingAuth: NSObject, ObservableObject {
         
         self.token = token
         
+        // ユーザー情報を取得する
+        Task {
+            await verifyCredentials()
+        }
+        
         // トークンが失効するまでの秒数を取得
         guard let expiresIn = queryItems.filter({ $0.name == "expires_in" }).first?.value else {
             print("expiresIn を取得できませんでした")
@@ -157,11 +162,6 @@ public class TwitCastingAuth: NSObject, ObservableObject {
         
         // トークン執行日時を算出
         self.expirationDate = Date().timeIntervalSince1970 + (TimeInterval(expiresIn) ?? 0.0)
-
-        // ユーザー情報を取得する
-        Task {
-            await verifyCredentials()
-        }
         
     }
     
