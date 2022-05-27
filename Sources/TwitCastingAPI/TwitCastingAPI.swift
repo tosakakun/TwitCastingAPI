@@ -9,7 +9,14 @@ import Foundation
 
 public struct TwitCastingAPI {
     
-    // HTTP メソッドの種類
+    /// APIの実行上限回数
+    public static var xRateLimitLimit = 0
+    /// APIの残り実行可能回数
+    public static var xRateLimitRemaining = 0
+    /// APIの残り実行可能回数がリセットされる時刻のUnixTimestamp
+    public static var xRateLimitReset = 0
+    
+    /// HTTP メソッドの種類
     private enum HTTPMethod: String {
         case get = "GET"
         case post = "POST"
@@ -839,6 +846,11 @@ public struct TwitCastingAPI {
         guard let httpURLResponse = response as? HTTPURLResponse else {
             throw TCError.unknownError(messeage: "can not cast to HTTPURLResponse")
         }
+        
+        // レスポンスヘッダの情報を取得
+        TwitCastingAPI.xRateLimitLimit = Int(httpURLResponse.value(forHTTPHeaderField: "X-RateLimit-Limit")  ?? "0") ?? 0
+        TwitCastingAPI.xRateLimitRemaining = Int(httpURLResponse.value(forHTTPHeaderField: "X-RateLimit-Remaining") ?? "0") ?? 0
+        TwitCastingAPI.xRateLimitReset = Int(httpURLResponse.value(forHTTPHeaderField: "X-RateLimit-Reset") ?? "0") ?? 0
         
         guard httpURLResponse.statusCode == 200 || httpURLResponse.statusCode == 201 else {
             
