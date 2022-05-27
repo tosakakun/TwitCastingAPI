@@ -859,7 +859,7 @@ public struct TwitCastingAPI {
                 throw errorResponse.error
             } else {
                 // 不明なエラー
-                throw TCError.unknownError(message: "can not decode error response")
+                throw TCError.unknownError(code: httpURLResponse.statusCode, message: "can not decode error response")
             }
             
         }
