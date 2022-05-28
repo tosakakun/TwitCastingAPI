@@ -445,14 +445,16 @@ public struct TwitCastingAPI {
     /// - Returns: TCDeleteCommentResponse
     public func deleteComment(token: String, movieId: String, commentId: String) async throws -> TCDeleteCommentResponse {
         
-        let url = URL(string: baseURL + "/movies/\(movieId)/comments/\(commentId)")!
+        try await TCDeleteCommentRequest(token: token, movieId: movieId, commentId: commentId).send()
         
-        var request = URLRequest(url: url)
-        request.httpMethod = HTTPMethod.delete.rawValue
-        
-        let deleteCommentResponse = try await send(token: token, request: request, type: TCDeleteCommentResponse.self)
-        
-        return deleteCommentResponse
+//        let url = URL(string: baseURL + "/movies/\(movieId)/comments/\(commentId)")!
+//
+//        var request = URLRequest(url: url)
+//        request.httpMethod = HTTPMethod.delete.rawValue
+//
+//        let deleteCommentResponse = try await send(token: token, request: request, type: TCDeleteCommentResponse.self)
+//
+//        return deleteCommentResponse
 
     }
     
