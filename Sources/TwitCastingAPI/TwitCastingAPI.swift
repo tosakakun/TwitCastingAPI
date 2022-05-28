@@ -118,13 +118,15 @@ public struct TwitCastingAPI {
     /// - Returns: TCUserInfoResponse
     public func getUserInfo(token: String, userId: String) async throws -> TCUserInfoResponse {
         
-        let url = URL(string: baseURL + "/users/" + userId)!
+        try await TCGetUserInfoRequest(token: token, userId: userId).send()
         
-        let request = URLRequest(url: url)
-
-        let user = try await send(token: token, request: request, type: TCUserInfoResponse.self)
-        
-        return user
+//        let url = URL(string: baseURL + "/users/" + userId)!
+//
+//        let request = URLRequest(url: url)
+//
+//        let user = try await send(token: token, request: request, type: TCUserInfoResponse.self)
+//
+//        return user
         
     }
     
@@ -133,13 +135,15 @@ public struct TwitCastingAPI {
     /// - Returns: TCCredentialResponse
     public func verifyCredentials(token: String) async throws -> TCCredentialResponse {
         
-        let url = URL(string: baseURL + "/verify_credentials")!
+        try await TCverifyCredentialsRequest(token: token).send()
         
-        let request = URLRequest(url: url)
-        
-        let credentialResponse = try await send(token: token, request: request, type: TCCredentialResponse.self)
-        
-        return credentialResponse
+//        let url = URL(string: baseURL + "/verify_credentials")!
+//
+//        let request = URLRequest(url: url)
+//
+//        let credentialResponse = try await send(token: token, request: request, type: TCCredentialResponse.self)
+//
+//        return credentialResponse
 
     }
     
@@ -194,13 +198,15 @@ public struct TwitCastingAPI {
     /// - Returns: TCMovieInfoResponse
     public func getMovieInfo(token: String, movieId: String) async throws -> TCMovieInfoResponse {
         
-        let url = URL(string: baseURL + "/movies/\(movieId)")!
+        try await TCGetMovieInfoRequest(token: token, movieId: movieId).send()
         
-        let request = URLRequest(url: url)
-        
-        let movieInfoResponse = try await send(token: token, request: request, type: TCMovieInfoResponse.self)
-        
-        return movieInfoResponse
+//        let url = URL(string: baseURL + "/movies/\(movieId)")!
+//
+//        let request = URLRequest(url: url)
+//
+//        let movieInfoResponse = try await send(token: token, request: request, type: TCMovieInfoResponse.self)
+//
+//        return movieInfoResponse
         
     }
 
@@ -214,26 +220,30 @@ public struct TwitCastingAPI {
     /// - Returns: TCMoviesByUserResponse
     public func getMoviesByUser(token: String, userId: String, offset: Int = 0, limit: Int = 20, sliceId: String? = nil) async throws -> TCMoviesByUserResponse {
         
-        let url = URL(string: baseURL + "/users/\(userId)/movies")!
+        let parameters = TCGetMoviesByUserRequest.Parameters(offset: offset, limit: limit, sliceId: sliceId)
         
-        var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
-        components.queryItems = [
-            URLQueryItem(name: "offset", value: "\(offset)"),
-            URLQueryItem(name: "limit", value: "\(limit)")
-        ]
+        return try await TCGetMoviesByUserRequest(token: token, userId: userId).send(parameter: parameters)
         
-        if var validSliceId = sliceId {
-            if let intSliceId = Int(validSliceId), intSliceId < 1 {
-                validSliceId = "1"
-            }
-            components.queryItems?.append(URLQueryItem(name: "slice_id", value: validSliceId))
-        }
-        
-        let request = URLRequest(url: components.url!)
-        
-        let moviesByUserResponse = try await send(token: token, request: request, type: TCMoviesByUserResponse.self)
-        
-        return moviesByUserResponse
+//        let url = URL(string: baseURL + "/users/\(userId)/movies")!
+//
+//        var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
+//        components.queryItems = [
+//            URLQueryItem(name: "offset", value: "\(offset)"),
+//            URLQueryItem(name: "limit", value: "\(limit)")
+//        ]
+//
+//        if var validSliceId = sliceId {
+//            if let intSliceId = Int(validSliceId), intSliceId < 1 {
+//                validSliceId = "1"
+//            }
+//            components.queryItems?.append(URLQueryItem(name: "slice_id", value: validSliceId))
+//        }
+//
+//        let request = URLRequest(url: components.url!)
+//
+//        let moviesByUserResponse = try await send(token: token, request: request, type: TCMoviesByUserResponse.self)
+//
+//        return moviesByUserResponse
 
     }
 
@@ -244,13 +254,15 @@ public struct TwitCastingAPI {
     /// - Returns: TCCurrentLiveResponse
     public func getCurrentLive(token: String, userId: String) async throws -> TCCurrentLiveResponse {
         
-        let url = URL(string: baseURL + "/users/" + userId + "/current_live")!
+        try await TCGetCurrentLiveRequest(token: token, userId: userId).send()
         
-        let request = URLRequest(url: url)
-        
-        let currentLiveResponse = try await send(token: token, request: request, type: TCCurrentLiveResponse.self)
-        
-        return currentLiveResponse
+//        let url = URL(string: baseURL + "/users/" + userId + "/current_live")!
+//
+//        let request = URLRequest(url: url)
+//
+//        let currentLiveResponse = try await send(token: token, request: request, type: TCCurrentLiveResponse.self)
+//
+//        return currentLiveResponse
         
     }
 
@@ -261,21 +273,25 @@ public struct TwitCastingAPI {
     /// - Returns: TCCurrentLiveSubtitleResponse
     public func setCurrentLiveSubtitle(token: String, subtitle: String) async throws -> TCCurrentLiveSubtitleResponse {
         
-        let url = URL(string: baseURL + "/movies/subtitle")!
+        let parameters = TCSetCurrentLiveSubtitleRequest.Parameters(subtitle: subtitle)
         
-        let parameters = ["subtitle": subtitle]
+        return try await TCSetCurrentLiveSubtitleRequest(token: token).send(parameter: parameters)
         
-        guard let data = try? JSONSerialization.data(withJSONObject: parameters) else {
-            throw TCError.unknownError(message: "can not serialize parameters")
-        }
-
-        var request = URLRequest(url: url)
-        request.httpBody = data
-        request.httpMethod = HTTPMethod.post.rawValue
-        
-        let currentLiveSubtitleResponse = try await send(token: token, request: request, type: TCCurrentLiveSubtitleResponse.self)
-        
-        return currentLiveSubtitleResponse
+//        let url = URL(string: baseURL + "/movies/subtitle")!
+//
+//        let parameters = ["subtitle": subtitle]
+//
+//        guard let data = try? JSONSerialization.data(withJSONObject: parameters) else {
+//            throw TCError.unknownError(message: "can not serialize parameters")
+//        }
+//
+//        var request = URLRequest(url: url)
+//        request.httpBody = data
+//        request.httpMethod = HTTPMethod.post.rawValue
+//
+//        let currentLiveSubtitleResponse = try await send(token: token, request: request, type: TCCurrentLiveSubtitleResponse.self)
+//
+//        return currentLiveSubtitleResponse
         
     }
 
@@ -284,13 +300,15 @@ public struct TwitCastingAPI {
     /// - Returns: TCCurrentLiveSubtitleResponse
     public func unsetCurrentLiveSubtitle(token: String) async throws -> TCCurrentLiveSubtitleResponse {
         
-        let url = URL(string: baseURL + "/movies/subtitle")!
-        var request = URLRequest(url: url)
-        request.httpMethod = HTTPMethod.delete.rawValue
+        try await TCUnsetCurrentLiveSubtitleRequest(token: token).send()
         
-        let currentLiveSubtitleResponse = try await send(token: token, request: request, type: TCCurrentLiveSubtitleResponse.self)
-        
-        return currentLiveSubtitleResponse
+//        let url = URL(string: baseURL + "/movies/subtitle")!
+//        var request = URLRequest(url: url)
+//        request.httpMethod = HTTPMethod.delete.rawValue
+//
+//        let currentLiveSubtitleResponse = try await send(token: token, request: request, type: TCCurrentLiveSubtitleResponse.self)
+//
+//        return currentLiveSubtitleResponse
 
     }
 
@@ -301,21 +319,25 @@ public struct TwitCastingAPI {
     /// - Returns: TCCurrentLiveHashtagResponse
     public func setCurrentLiveHashtag(token: String, hashtag: String) async throws -> TCCurrentLiveHashtagResponse {
         
-        let url = URL(string: baseURL + "/movies/hashtag")!
+        let parameter = TCSetCurrentLiveHashtagRequest.Parameter(hashtag: hashtag)
         
-        let parameters = ["hashtag": hashtag]
+        return try await TCSetCurrentLiveHashtagRequest(token: token).send(parameter: parameter)
         
-        guard let data = try? JSONSerialization.data(withJSONObject: parameters) else {
-            throw TCError.unknownError(message: "can not serialize parameters")
-        }
-        
-        var request = URLRequest(url: url)
-        request.httpBody = data
-        request.httpMethod = HTTPMethod.post.rawValue
-        
-        let currentLiveHashtagResponse = try await send(token: token, request: request, type: TCCurrentLiveHashtagResponse.self)
-        
-        return currentLiveHashtagResponse
+//        let url = URL(string: baseURL + "/movies/hashtag")!
+//
+//        let parameters = ["hashtag": hashtag]
+//
+//        guard let data = try? JSONSerialization.data(withJSONObject: parameters) else {
+//            throw TCError.unknownError(message: "can not serialize parameters")
+//        }
+//
+//        var request = URLRequest(url: url)
+//        request.httpBody = data
+//        request.httpMethod = HTTPMethod.post.rawValue
+//
+//        let currentLiveHashtagResponse = try await send(token: token, request: request, type: TCCurrentLiveHashtagResponse.self)
+//
+//        return currentLiveHashtagResponse
         
     }
 
@@ -324,14 +346,16 @@ public struct TwitCastingAPI {
     /// - Returns: TCCurrentLiveHashtagResponse
     public func unsetCurrentLiveHashtag(token: String) async throws -> TCCurrentLiveHashtagResponse {
         
-        let url = URL(string: baseURL + "/movies/hashtag")!
+        try await TCUnsetCurrentLiveHashtagRequest(token: token).send()
         
-        var request = URLRequest(url: url)
-        request.httpMethod = HTTPMethod.delete.rawValue
-        
-        let currentLiveHashtagResponse = try await send(token: token, request: request, type: TCCurrentLiveHashtagResponse.self)
-        
-        return currentLiveHashtagResponse
+//        let url = URL(string: baseURL + "/movies/hashtag")!
+//
+//        var request = URLRequest(url: url)
+//        request.httpMethod = HTTPMethod.delete.rawValue
+//
+//        let currentLiveHashtagResponse = try await send(token: token, request: request, type: TCCurrentLiveHashtagResponse.self)
+//
+//        return currentLiveHashtagResponse
         
     }
     
