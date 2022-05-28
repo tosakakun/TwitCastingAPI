@@ -41,13 +41,19 @@ public struct TwitCastingAPI {
     }
     
     /// SNSへの同時投稿(ユーザーがTwitterまたはFacebookと連携しているときのみ有効)
-    public enum SNS: String, CaseIterable {
+    public enum SNS: String, CaseIterable, CustomStringConvertible, Encodable {
+
         /// 配信者へリプライする形式で投稿
         case reply
         /// 通常の投稿
         case normal
         /// SNS投稿無し
         case none
+        
+        public var description: String {
+            rawValue
+        }
+
     }
     
     /// サポーターリスト取得時のソート順
@@ -406,24 +412,28 @@ public struct TwitCastingAPI {
     /// - Returns: TCPostCommentResponse
     public func postComment(token: String, movieId: String, comment: String, sns: SNS = .none) async throws -> TCPostCommentResponse {
         
-        let url = URL(string: baseURL + "/movies/\(movieId)/comments")!
+        let parameter = TCPostCommentRequest.Parameter(comment: comment, sns: sns)
         
-        let parameters = [
-            "comment": comment,
-            "sns": sns.rawValue
-        ]
+        return try await TCPostCommentRequest(token: token, movieId: movieId).send(parameter: parameter)
         
-        guard let data = try? JSONSerialization.data(withJSONObject: parameters) else {
-            throw TCError.unknownError(message: "can not serialize parameters")
-        }
-
-        var request = URLRequest(url: url)
-        request.httpBody = data
-        request.httpMethod = HTTPMethod.post.rawValue
-        
-        let postCommentResponse = try await send(token: token, request: request, type: TCPostCommentResponse.self)
-        
-        return postCommentResponse
+//        let url = URL(string: baseURL + "/movies/\(movieId)/comments")!
+//
+//        let parameters = [
+//            "comment": comment,
+//            "sns": sns.rawValue
+//        ]
+//
+//        guard let data = try? JSONSerialization.data(withJSONObject: parameters) else {
+//            throw TCError.unknownError(message: "can not serialize parameters")
+//        }
+//
+//        var request = URLRequest(url: url)
+//        request.httpBody = data
+//        request.httpMethod = HTTPMethod.post.rawValue
+//
+//        let postCommentResponse = try await send(token: token, request: request, type: TCPostCommentResponse.self)
+//
+//        return postCommentResponse
 
     }
 
