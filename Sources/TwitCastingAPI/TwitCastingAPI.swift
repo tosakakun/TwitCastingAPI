@@ -371,25 +371,29 @@ public struct TwitCastingAPI {
     /// - Returns: TCGetCommentsResponse
     public func getComments(token: String, movieId: String, offset: Int = 0, limit: Int = 10, sliceId: String? = nil) async throws -> TCGetCommentsResponse {
         
-        let url = URL(string: baseURL + "/movies/\(movieId)/comments")!
-        var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
-        components.queryItems = [
-            URLQueryItem(name: "offset", value: "\(offset)"),
-            URLQueryItem(name: "limit", value: "\(limit)")
-        ]
+        let parameter = TCGetCommentsRequest.Parameter(offset: offset, limit: limit, sliceId: sliceId)
         
-        if var validSliceId = sliceId {
-            if let intSliceId = Int(validSliceId), intSliceId < 1 {
-                validSliceId = "1"
-            }
-            components.queryItems?.append(URLQueryItem(name: "slice_id", value: validSliceId))
-        }
+        return try await TCGetCommentsRequest(token: token, movieId: movieId).send(parameter: parameter)
         
-        let request = URLRequest(url: components.url!)
-        
-        let getCommentsResponse = try await send(token: token, request: request, type: TCGetCommentsResponse.self)
-        
-        return getCommentsResponse
+//        let url = URL(string: baseURL + "/movies/\(movieId)/comments")!
+//        var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
+//        components.queryItems = [
+//            URLQueryItem(name: "offset", value: "\(offset)"),
+//            URLQueryItem(name: "limit", value: "\(limit)")
+//        ]
+//
+//        if var validSliceId = sliceId {
+//            if let intSliceId = Int(validSliceId), intSliceId < 1 {
+//                validSliceId = "1"
+//            }
+//            components.queryItems?.append(URLQueryItem(name: "slice_id", value: validSliceId))
+//        }
+//
+//        let request = URLRequest(url: components.url!)
+//
+//        let getCommentsResponse = try await send(token: token, request: request, type: TCGetCommentsResponse.self)
+//
+//        return getCommentsResponse
 
     }
 
