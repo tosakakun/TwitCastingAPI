@@ -97,9 +97,11 @@ protocol TCBaseRequest {
     var decoder: JSONDecoder { get }
     
     /// リクエストを送信する
-    /// - Parameter parameter: リクエストパラメータ
+    /// - Parameters:
+    ///   - parameter: リクエストパラメータ
+    ///   - session: URLSession
     /// - Returns: Response
-    func send(parameter: Request?) async throws -> Response
+    func send(parameter: Request?, session: URLSession) async throws -> Response
     
 }
 
@@ -141,7 +143,7 @@ extension TCBaseRequest {
         return decoder
     }
     
-    func send(parameter: Request? = nil) async throws -> Response {
+    func send(parameter: Request? = nil, session: URLSession = URLSession.shared) async throws -> Response {
         
         var data: Data? = nil
         
@@ -153,14 +155,14 @@ extension TCBaseRequest {
             }
         }
         
-        return try await send(data: data)
+        return try await send(data: data, session: session)
         
     }
     
     /// リクエストを送信する
     /// - Parameter data: リクエストで送信するデータ
     /// - Returns: Response
-    private func send(data: Data?) async throws -> Response {
+    private func send(data: Data?, session: URLSession) async throws -> Response {
         
         guard let url = url else {
             throw TCError.unknownError(message: "url is nil")
@@ -172,7 +174,7 @@ extension TCBaseRequest {
         })
         
         // リクエストを送信
-        let (data, response) = try await URLSession.shared.data(for: urlRequest)
+        let (data, response) = try await session.data(for: urlRequest)
         
         guard let httpURLResponse = response as? HTTPURLResponse else {
             throw TCError.unknownError(message: "can not cast to HTTPURLResponse")
