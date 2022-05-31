@@ -467,18 +467,22 @@ public struct TwitCastingAPI {
     /// - Returns: TCGiftsResponse
     public func getGifts(token: String, sliceId: Int = -1) async throws -> TCGiftsResponse {
         
-        let url = URL(string: baseURL + "/gifts")!
+        let parameter = TCGetGiftsRequest.Parameter(sliceId: sliceId)
         
-        var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
-        components.queryItems = [
-            URLQueryItem(name: "slice_id", value: "\(sliceId)")
-        ]
+        return try await TCGetGiftsRequest(token: token).send(parameter: parameter)
         
-        let request = URLRequest(url: components.url!)
-        
-        let giftsResponse = try await send(token: token, request: request, type: TCGiftsResponse.self)
-        
-        return giftsResponse
+//        let url = URL(string: baseURL + "/gifts")!
+//
+//        var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
+//        components.queryItems = [
+//            URLQueryItem(name: "slice_id", value: "\(sliceId)")
+//        ]
+//
+//        let request = URLRequest(url: components.url!)
+//
+//        let giftsResponse = try await send(token: token, request: request, type: TCGiftsResponse.self)
+//
+//        return giftsResponse
         
     }
     
