@@ -16,14 +16,6 @@ public struct TwitCastingAPI {
     /// APIの残り実行可能回数がリセットされる時刻のUnixTimestamp
     public static var xRateLimitReset = 0
     
-    /// HTTP メソッドの種類
-    private enum HTTPMethod: String {
-        case get = "GET"
-        case post = "POST"
-        case put = "PUT"
-        case delete = "DELETE"
-    }
-    
     /// ライブサムネイル画像サイズ
     public enum LiveThumbnailImageSize: String, CustomStringConvertible, Encodable {
         /// 大
@@ -127,16 +119,6 @@ public struct TwitCastingAPI {
         /// ライブ終了
         case liveEnd = "liveend"
     }
-    
-    /// Base URL
-    private let baseURL = "https://apiv2.twitcasting.tv"
-    
-    /// JSONデコーダー
-    private let decoder: JSONDecoder = {
-        let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        return decoder
-    }()
     
     /// イニシャライザ
     public init() {
