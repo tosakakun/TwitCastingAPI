@@ -522,21 +522,25 @@ public struct TwitCastingAPI {
     /// - Returns: TCSupportUserResponse
     public func supportUser(token: String, targetUserIds: [String]) async throws -> TCSupportUserResponse {
         
-        let url = URL(string: baseURL + "/support")!
+        let parameter = TCSupportUserRequest.Parameter(targetUserIds: targetUserIds)
         
-        let parameters = ["target_user_ids": targetUserIds]
+        return try await TCSupportUserRequest(token: token).send(parameter: parameter)
         
-        guard let data = try? JSONSerialization.data(withJSONObject: parameters) else {
-            throw TCError.unknownError(message: "can not serialize parameters")
-        }
-        
-        var request = URLRequest(url: url)
-        request.httpBody = data
-        request.httpMethod = HTTPMethod.put.rawValue
-        
-        let supportUserResponse = try await send(token: token, request: request, type: TCSupportUserResponse.self)
-        
-        return supportUserResponse
+//        let url = URL(string: baseURL + "/support")!
+//
+//        let parameters = ["target_user_ids": targetUserIds]
+//
+//        guard let data = try? JSONSerialization.data(withJSONObject: parameters) else {
+//            throw TCError.unknownError(message: "can not serialize parameters")
+//        }
+//
+//        var request = URLRequest(url: url)
+//        request.httpBody = data
+//        request.httpMethod = HTTPMethod.put.rawValue
+//
+//        let supportUserResponse = try await send(token: token, request: request, type: TCSupportUserResponse.self)
+//
+//        return supportUserResponse
         
     }
     
@@ -547,21 +551,25 @@ public struct TwitCastingAPI {
     /// - Returns: TCUnsupportUserResponse
     public func unsupportUser(token: String, targetUserIds: [String]) async throws -> TCUnsupportUserResponse {
         
-        let url = URL(string: baseURL + "/unsupport")!
+        let parameter = TCUnsupportUserRequest.Parameter(targetUserIds: targetUserIds)
         
-        let parameters = ["target_user_ids": targetUserIds]
+        return try await TCUnsupportUserRequest(token: token).send(parameter: parameter)
         
-        guard let data = try? JSONSerialization.data(withJSONObject: parameters) else {
-            throw TCError.unknownError(message: "can not serialize parameters")
-        }
-        
-        var request = URLRequest(url: url)
-        request.httpBody = data
-        request.httpMethod = HTTPMethod.put.rawValue
-        
-        let unsupportUserResponse = try await send(token: token, request: request, type: TCUnsupportUserResponse.self)
-        
-        return unsupportUserResponse
+//        let url = URL(string: baseURL + "/unsupport")!
+//
+//        let parameters = ["target_user_ids": targetUserIds]
+//
+//        guard let data = try? JSONSerialization.data(withJSONObject: parameters) else {
+//            throw TCError.unknownError(message: "can not serialize parameters")
+//        }
+//
+//        var request = URLRequest(url: url)
+//        request.httpBody = data
+//        request.httpMethod = HTTPMethod.put.rawValue
+//
+//        let unsupportUserResponse = try await send(token: token, request: request, type: TCUnsupportUserResponse.self)
+//
+//        return unsupportUserResponse
         
     }
     
