@@ -79,8 +79,11 @@ public struct TwitCastingAPI {
     }
     
     /// 検索対象のユーザの言語設定
-    public enum UsersLang: String {
+    public enum UsersLang: String, CustomStringConvertible, Encodable {
         case ja
+        public var description: String {
+            rawValue
+        }
     }
     
     /// 配信中のライブ検索の検索種別
@@ -680,20 +683,24 @@ public struct TwitCastingAPI {
     /// - Returns: TCUsersResponse
     public func searchUsers(token: String, words: String, limit: Int = 10, lang: UsersLang = .ja) async throws -> TCUsersResponse {
         
-        let url = URL(string: baseURL + "/search/users")!
+        let parameter = TCSearchUsersRequest.Parameter(words: words, limit: limit, lang: lang)
         
-        var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
-        components.queryItems = [
-            URLQueryItem(name: "words", value: words),
-            URLQueryItem(name: "limit", value: "\(limit)"),
-            URLQueryItem(name: "lang", value: lang.rawValue)
-        ]
+        return try await TCSearchUsersRequest(token: token).send(parameter: parameter)
         
-        let request = URLRequest(url: components.url!)
-        
-        let usersResponse = try await send(token: token, request: request, type: TCUsersResponse.self)
-        
-        return usersResponse
+//        let url = URL(string: baseURL + "/search/users")!
+//
+//        var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
+//        components.queryItems = [
+//            URLQueryItem(name: "words", value: words),
+//            URLQueryItem(name: "limit", value: "\(limit)"),
+//            URLQueryItem(name: "lang", value: lang.rawValue)
+//        ]
+//
+//        let request = URLRequest(url: components.url!)
+//
+//        let usersResponse = try await send(token: token, request: request, type: TCUsersResponse.self)
+//
+//        return usersResponse
 
     }
 
