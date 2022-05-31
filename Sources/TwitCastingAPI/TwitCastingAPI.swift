@@ -650,18 +650,22 @@ public struct TwitCastingAPI {
     /// - Returns: TCCategoryResponse
     public func getCategories(token: String, lang: CategoryLang) async throws -> TCCategoryResponse {
         
-        let url = URL(string: baseURL + "/categories")!
+        let parameter = TCGetCategoriesRequest.Parameter(lang: lang)
         
-        var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
-        components.queryItems = [
-            URLQueryItem(name: "lang", value: lang.rawValue)
-        ]
+        return try await TCGetCategoriesRequest(token: token).send(parameter: parameter)
         
-        let request = URLRequest(url: components.url!)
-        
-        let categoryResponse = try await send(token: token, request: request, type: TCCategoryResponse.self)
-        
-        return categoryResponse
+//        let url = URL(string: baseURL + "/categories")!
+//
+//        var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
+//        components.queryItems = [
+//            URLQueryItem(name: "lang", value: lang.rawValue)
+//        ]
+//
+//        let request = URLRequest(url: components.url!)
+//
+//        let categoryResponse = try await send(token: token, request: request, type: TCCategoryResponse.self)
+//
+//        return categoryResponse
 
     }
     
