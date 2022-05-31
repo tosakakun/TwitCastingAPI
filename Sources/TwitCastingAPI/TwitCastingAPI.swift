@@ -582,19 +582,23 @@ public struct TwitCastingAPI {
     /// - Returns: TCSupportingListResponse
     public func supportingList(token: String, userId: String, offset: Int = 0, limit: Int = 20) async throws -> TCSupportingListResponse {
         
-        let url = URL(string: baseURL + "/users/\(userId)/supporting")!
+        let parameter = TCSupportingListRequest.Parameter(offset: offset, limit: limit)
         
-        var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
-        components.queryItems = [
-            URLQueryItem(name: "offset", value: "\(offset)"),
-            URLQueryItem(name: "limit", value: "\(limit)")
-        ]
+        return try await TCSupportingListRequest(token: token, userId: userId).send(parameter: parameter)
         
-        let request = URLRequest(url: components.url!)
-        
-        let supportingListResponse = try await send(token: token, request: request, type: TCSupportingListResponse.self)
-        
-        return supportingListResponse
+//        let url = URL(string: baseURL + "/users/\(userId)/supporting")!
+//
+//        var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
+//        components.queryItems = [
+//            URLQueryItem(name: "offset", value: "\(offset)"),
+//            URLQueryItem(name: "limit", value: "\(limit)")
+//        ]
+//
+//        let request = URLRequest(url: components.url!)
+//
+//        let supportingListResponse = try await send(token: token, request: request, type: TCSupportingListResponse.self)
+//
+//        return supportingListResponse
         
     }
 
