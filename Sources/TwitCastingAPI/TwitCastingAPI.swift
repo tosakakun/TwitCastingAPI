@@ -496,18 +496,22 @@ public struct TwitCastingAPI {
     /// - Returns: TCSupportingStatusResponse
     public func getSupportingStatus(token: String, userId: String, targetUserId: String) async throws -> TCSupportingStatusResponse {
         
-        let url = URL(string: baseURL + "/users/\(userId)/supporting_status")!
+        let parameter = TCGetSupportingStatusRequest.Parameter(targetUserId: targetUserId)
         
-        var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
-        components.queryItems = [
-            URLQueryItem(name: "target_user_id", value: targetUserId)
-        ]
+        return try await TCGetSupportingStatusRequest(token: token, userId: userId).send(parameter: parameter)
         
-        let request = URLRequest(url: components.url!)
-        
-        let supportingStatusResponse = try await send(token: token, request: request, type: TCSupportingStatusResponse.self)
-        
-        return supportingStatusResponse
+//        let url = URL(string: baseURL + "/users/\(userId)/supporting_status")!
+//
+//        var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
+//        components.queryItems = [
+//            URLQueryItem(name: "target_user_id", value: targetUserId)
+//        ]
+//
+//        let request = URLRequest(url: components.url!)
+//
+//        let supportingStatusResponse = try await send(token: token, request: request, type: TCSupportingStatusResponse.self)
+//
+//        return supportingStatusResponse
         
     }
     
