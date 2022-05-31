@@ -890,22 +890,22 @@ public struct TwitCastingAPI {
     
     // MARK: - Private Method
     
-    /// リクエストを送信する
-    /// - Parameters:
-    ///   - token: アクセストークン
-    ///   - request: リクエスト
-    ///   - type: レスポンスの型
-    /// - Returns: レスポンスオブジェクト
-    private func send<T: Codable>(token: String, request: URLRequest, type: T.Type) async throws -> T {
-        
-        // リクエストヘッダの設定
-        var request = request
-        request.addValue("2.0", forHTTPHeaderField: "X-Api-Version")
-        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-
-        return try await send(request: request, type: type)
-        
-    }
+//    /// リクエストを送信する
+//    /// - Parameters:
+//    ///   - token: アクセストークン
+//    ///   - request: リクエスト
+//    ///   - type: レスポンスの型
+//    /// - Returns: レスポンスオブジェクト
+//    private func send<T: Codable>(token: String, request: URLRequest, type: T.Type) async throws -> T {
+//
+//        // リクエストヘッダの設定
+//        var request = request
+//        request.addValue("2.0", forHTTPHeaderField: "X-Api-Version")
+//        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+//
+//        return try await send(request: request, type: type)
+//
+//    }
 
 //    /// リクエストを送信する
 //    /// - Parameters:
@@ -932,44 +932,44 @@ public struct TwitCastingAPI {
 //
 //    }
     
-    /// リクエストを送信する
-    /// - Parameters:
-    ///   - request: リクエスト
-    ///   - type: レスポンスの型
-    /// - Returns: レスポンスオブジェクト
-    private func send<T: Codable>(request: URLRequest, type: T.Type) async throws -> T {
-        
-        // リクエストを送信
-        let (data, response) = try await URLSession.shared.data(for: request)
-        
-        guard let httpURLResponse = response as? HTTPURLResponse else {
-            throw TCError.unknownError(message: "can not cast to HTTPURLResponse")
-        }
-        
-        // レスポンスヘッダの情報を取得
-        TwitCastingAPI.xRateLimitLimit = Int(httpURLResponse.value(forHTTPHeaderField: "X-RateLimit-Limit")  ?? "0") ?? 0
-        TwitCastingAPI.xRateLimitRemaining = Int(httpURLResponse.value(forHTTPHeaderField: "X-RateLimit-Remaining") ?? "0") ?? 0
-        TwitCastingAPI.xRateLimitReset = Int(httpURLResponse.value(forHTTPHeaderField: "X-RateLimit-Reset") ?? "0") ?? 0
-        
-        guard httpURLResponse.statusCode == 200 || httpURLResponse.statusCode == 201 else {
-            
-            // ステータスコードが 200, 201 以外ならツイキャスエラーにデコードしてスローする
-            if let errorResponse = try? decoder.decode(TCErrorResponse.self, from: data) {
-                throw errorResponse.error
-            } else {
-                // 不明なエラー
-                throw TCError.unknownError(code: httpURLResponse.statusCode, message: "can not decode error response")
-            }
-            
-        }
-        
-        // ツイキャスAPIのレスポンスをデコードする
-        guard let object = try? decoder.decode(type, from: data) else {
-            throw TCError.unknownError(message: "can not decode response")
-        }
-            
-        return object
-        
-    }
+//    /// リクエストを送信する
+//    /// - Parameters:
+//    ///   - request: リクエスト
+//    ///   - type: レスポンスの型
+//    /// - Returns: レスポンスオブジェクト
+//    private func send<T: Codable>(request: URLRequest, type: T.Type) async throws -> T {
+//        
+//        // リクエストを送信
+//        let (data, response) = try await URLSession.shared.data(for: request)
+//        
+//        guard let httpURLResponse = response as? HTTPURLResponse else {
+//            throw TCError.unknownError(message: "can not cast to HTTPURLResponse")
+//        }
+//        
+//        // レスポンスヘッダの情報を取得
+//        TwitCastingAPI.xRateLimitLimit = Int(httpURLResponse.value(forHTTPHeaderField: "X-RateLimit-Limit")  ?? "0") ?? 0
+//        TwitCastingAPI.xRateLimitRemaining = Int(httpURLResponse.value(forHTTPHeaderField: "X-RateLimit-Remaining") ?? "0") ?? 0
+//        TwitCastingAPI.xRateLimitReset = Int(httpURLResponse.value(forHTTPHeaderField: "X-RateLimit-Reset") ?? "0") ?? 0
+//        
+//        guard httpURLResponse.statusCode == 200 || httpURLResponse.statusCode == 201 else {
+//            
+//            // ステータスコードが 200, 201 以外ならツイキャスエラーにデコードしてスローする
+//            if let errorResponse = try? decoder.decode(TCErrorResponse.self, from: data) {
+//                throw errorResponse.error
+//            } else {
+//                // 不明なエラー
+//                throw TCError.unknownError(code: httpURLResponse.statusCode, message: "can not decode error response")
+//            }
+//            
+//        }
+//        
+//        // ツイキャスAPIのレスポンスをデコードする
+//        guard let object = try? decoder.decode(type, from: data) else {
+//            throw TCError.unknownError(message: "can not decode response")
+//        }
+//            
+//        return object
+//        
+//    }
     
 }
