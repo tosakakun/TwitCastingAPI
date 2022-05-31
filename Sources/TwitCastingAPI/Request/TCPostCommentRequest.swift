@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// コメントを投稿する。 ユーザ単位でのみ実行可能。
 struct TCPostCommentRequest: TCBaseRequest {
     
     typealias Request = Parameter

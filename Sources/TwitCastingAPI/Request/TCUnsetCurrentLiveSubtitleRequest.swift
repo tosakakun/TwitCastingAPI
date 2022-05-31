@@ -2,7 +2,7 @@
 //  TCUnsetCurrentLiveSubtitleRequest.swift
 //  TwitCastingAPI
 //
-//  Created by 佐藤真樹 on 2022/05/28.
+//  Created by tosakakun on 2022/05/28.
 //
 
 import Foundation
