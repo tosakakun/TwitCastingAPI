@@ -69,9 +69,13 @@ public struct TwitCastingAPI {
     }
     
     /// カテゴリ検索対象の言語
-    public enum CategoryLang: String {
+    public enum CategoryLang: String, CustomStringConvertible, Encodable {
         case ja
         case en
+        
+        public var description: String {
+            rawValue
+        }
     }
     
     /// 検索対象のユーザの言語設定
