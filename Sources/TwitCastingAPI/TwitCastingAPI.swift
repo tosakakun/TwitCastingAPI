@@ -876,13 +876,15 @@ public struct TwitCastingAPI {
     /// - Returns: TCWebMUrlResponse
     public func getWebMUrl(token: String) async throws -> TCWebMUrlResponse {
         
-        let url = URL(string: baseURL + "/webm_url")!
+        try await TCGetWebMUrlRequest(token: token).send()
         
-        let request = URLRequest(url: url)
-        
-        let webMUrlResponse = try await send(token: token, request: request, type: TCWebMUrlResponse.self)
-        
-        return webMUrlResponse
+//        let url = URL(string: baseURL + "/webm_url")!
+//
+//        let request = URLRequest(url: url)
+//
+//        let webMUrlResponse = try await send(token: token, request: request, type: TCWebMUrlResponse.self)
+//
+//        return webMUrlResponse
         
     }
     
