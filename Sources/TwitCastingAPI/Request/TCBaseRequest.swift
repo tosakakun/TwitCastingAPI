@@ -145,30 +145,22 @@ extension TCBaseRequest {
     
     func send(parameter: Request? = nil, session: URLSession = URLSession.shared) async throws -> Response {
         
-        var data: Data? = nil
+        // リクエストを作成
+        var requestData: Data? = nil
         
         if let parameter = parameter {
             do {
-                data = try encoder.encode(parameter)
+                requestData = try encoder.encode(parameter)
             } catch {
                 throw TCError.unknownError(message: "can not encode request parameters")
             }
         }
         
-        return try await send(data: data, session: session)
-        
-    }
-    
-    /// リクエストを送信する
-    /// - Parameter data: リクエストで送信するデータ
-    /// - Returns: Response
-    private func send(data: Data?, session: URLSession) async throws -> Response {
-        
         guard let url = url else {
             throw TCError.unknownError(message: "url is nil")
         }
         
-        var urlRequest = try method.urlRequest(url: url, data: data)
+        var urlRequest = try method.urlRequest(url: url, data: requestData)
         urlRequest.allHTTPHeaderFields = defaultHeaderFields.merging(headerFields, uniquingKeysWith: { _, new  in
             new
         })
