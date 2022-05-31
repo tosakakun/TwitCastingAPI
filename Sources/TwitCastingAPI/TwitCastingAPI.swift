@@ -57,11 +57,15 @@ public struct TwitCastingAPI {
     }
     
     /// サポーターリスト取得時のソート順
-    public enum SupporterSort: String, CaseIterable {
+    public enum SupporterSort: String, CaseIterable, CustomStringConvertible, Encodable {
         /// 新着順
         case new
         /// 貢献度順
         case ranking
+        
+        public var description: String {
+            rawValue
+        }
     }
     
     /// カテゴリ検索対象の言語
@@ -612,20 +616,24 @@ public struct TwitCastingAPI {
     /// - Returns: TCSupporterListResponse
     public func supporterList(token: String, userId: String, offset: Int = 0, limit: Int = 20, sort: SupporterSort) async throws -> TCSupporterListResponse {
         
-        let url = URL(string: baseURL + "/users/\(userId)/supporters")!
+        let parameter = TCSupporterListRequest.Parameter(offset: offset, limit: limit, sort: sort)
         
-        var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
-        components.queryItems = [
-            URLQueryItem(name: "offset", value: "\(offset)"),
-            URLQueryItem(name: "limit", value: "\(limit)"),
-            URLQueryItem(name: "sort", value: sort.rawValue)
-        ]
+        return try await TCSupporterListRequest(token: token, userId: userId).send(parameter: parameter)
         
-        let request = URLRequest(url: components.url!)
-        
-        let supporterListResponse = try await send(token: token, request: request, type: TCSupporterListResponse.self)
-        
-        return supporterListResponse
+//        let url = URL(string: baseURL + "/users/\(userId)/supporters")!
+//
+//        var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
+//        components.queryItems = [
+//            URLQueryItem(name: "offset", value: "\(offset)"),
+//            URLQueryItem(name: "limit", value: "\(limit)"),
+//            URLQueryItem(name: "sort", value: sort.rawValue)
+//        ]
+//
+//        let request = URLRequest(url: components.url!)
+//
+//        let supporterListResponse = try await send(token: token, request: request, type: TCSupporterListResponse.self)
+//
+//        return supporterListResponse
         
     }
     
