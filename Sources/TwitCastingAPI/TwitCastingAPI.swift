@@ -748,109 +748,109 @@ public struct TwitCastingAPI {
         
     }
     
-    // MARK: - WebHook
-
-    /// アプリケーションに紐づく WebHook の一覧を取得する。アプリケーション単位でのみ実行可能です。
-    /// - Parameters:
-    ///   - clientId: クライアントID
-    ///   - clientSecret: クライアントシークレット
-    ///   - limit: 取得件数（userId の指定がない場合のみ有効）
-    ///   - offset: 先頭からの位置（userId の指定がない場合のみ有効）
-    ///   - userId: 対象ユーザのID
-    /// - Returns: TCWebHookListResponse
-    public func getWebHook(clientId: String, clientSecret: String, limit: Int = 50, offset: Int = 0, userId: String? = nil) async throws -> TCWebHookListResponse {
-        
-        let url = URL(string: baseURL + "/webhooks")!
-        
-        var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
-        
-        if let userId = userId {
-            components.queryItems = [
-                URLQueryItem(name: "user_id", value: userId)
-            ]
-        } else {
-            components.queryItems = [
-                URLQueryItem(name: "limit", value: "\(limit)"),
-                URLQueryItem(name: "offset", value: "\(offset)")
-            ]
-        }
-        
-        let request = URLRequest(url: components.url!)
-        
-        let webhookResponse = try await send(clientId: clientId, clientSecret: clientSecret, request: request, type: TCWebHookListResponse.self)
-        
-        return webhookResponse
-        
-    }
-
-    /// WebHookを新規登録します。このAPIを使用するためには、アプリケーションに WebHook URL が登録されている必要があります。
-    /// - Parameters:
-    ///   - clientId: クライアントID
-    ///   - clientSecret: クライアントシークレット
-    ///   - userId: ユーザID
-    ///   - events: フックするイベント種別(ライブ開始:"livestart", ライブ終了:"liveend")の配列
-    /// - Returns: TCRegisterWebHookResponse
-    public func registerWebHook(clientId: String, clientSecret: String, userId: String, events: [WebHookEvent]) async throws -> TCRegisterWebHookResponse {
-        
-        let url = URL(string: baseURL + "/webhooks")!
-        
-        // events の重複を削除
-        var eventsArray = events.map { $0.rawValue }
-        eventsArray = Array(Set(eventsArray))
-        
-        let parameters: [String : Any] = [
-            "user_id": userId,
-            "events": eventsArray
-        ]
-        
-        guard let data = try? JSONSerialization.data(withJSONObject: parameters) else {
-            throw TCError.unknownError(message: "can not serialize parameters")
-        }
-        
-        var request = URLRequest(url: url)
-        request.httpBody = data
-        request.httpMethod = HTTPMethod.post.rawValue
-        
-        let registerWebHookResponse = try await send(clientId: clientId, clientSecret: clientSecret, request: request, type: TCRegisterWebHookResponse.self)
-        
-        return registerWebHookResponse
-        
-    }
-    
-    
-    /// WebHookを削除する。
-    /// - Parameters:
-    ///   - clientId: クライアントID
-    ///   - clientSecret: クライアントシークレット
-    ///   - userId: ユーザID
-    ///   - events: フックを削除するイベント種別(ライブ開始:"livestart", ライブ終了:"liveend")の配列
-    /// - Returns: TCRemoveWebHookResponse
-    public func removeWebHook(clientId: String, clientSecret: String, userId: String, events: [WebHookEvent]) async throws -> TCRemoveWebHookResponse {
-        
-        let url = URL(string: baseURL + "/webhooks")!
-        
-        // events の重複を削除
-        var eventsArray = events.map { $0.rawValue }
-        eventsArray = Array(Set(eventsArray))
-        
-        let parameters: [String : Any] = [
-            "user_id": userId,
-            "events": eventsArray
-        ]
-        
-        guard let data = try? JSONSerialization.data(withJSONObject: parameters) else {
-            throw TCError.unknownError(message: "can not serialize parameters")
-        }
-        
-        var request = URLRequest(url: url)
-        request.httpBody = data
-        request.httpMethod = HTTPMethod.delete.rawValue
-        
-        let removeWebHookResponse = try await send(clientId: clientId, clientSecret: clientSecret, request: request, type: TCRemoveWebHookResponse.self)
-        
-        return removeWebHookResponse
-        
-    }
+//    // MARK: - WebHook
+//
+//    /// アプリケーションに紐づく WebHook の一覧を取得する。アプリケーション単位でのみ実行可能です。
+//    /// - Parameters:
+//    ///   - clientId: クライアントID
+//    ///   - clientSecret: クライアントシークレット
+//    ///   - limit: 取得件数（userId の指定がない場合のみ有効）
+//    ///   - offset: 先頭からの位置（userId の指定がない場合のみ有効）
+//    ///   - userId: 対象ユーザのID
+//    /// - Returns: TCWebHookListResponse
+//    public func getWebHook(clientId: String, clientSecret: String, limit: Int = 50, offset: Int = 0, userId: String? = nil) async throws -> TCWebHookListResponse {
+//
+//        let url = URL(string: baseURL + "/webhooks")!
+//
+//        var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
+//
+//        if let userId = userId {
+//            components.queryItems = [
+//                URLQueryItem(name: "user_id", value: userId)
+//            ]
+//        } else {
+//            components.queryItems = [
+//                URLQueryItem(name: "limit", value: "\(limit)"),
+//                URLQueryItem(name: "offset", value: "\(offset)")
+//            ]
+//        }
+//
+//        let request = URLRequest(url: components.url!)
+//
+//        let webhookResponse = try await send(clientId: clientId, clientSecret: clientSecret, request: request, type: TCWebHookListResponse.self)
+//
+//        return webhookResponse
+//
+//    }
+//
+//    /// WebHookを新規登録します。このAPIを使用するためには、アプリケーションに WebHook URL が登録されている必要があります。
+//    /// - Parameters:
+//    ///   - clientId: クライアントID
+//    ///   - clientSecret: クライアントシークレット
+//    ///   - userId: ユーザID
+//    ///   - events: フックするイベント種別(ライブ開始:"livestart", ライブ終了:"liveend")の配列
+//    /// - Returns: TCRegisterWebHookResponse
+//    public func registerWebHook(clientId: String, clientSecret: String, userId: String, events: [WebHookEvent]) async throws -> TCRegisterWebHookResponse {
+//
+//        let url = URL(string: baseURL + "/webhooks")!
+//
+//        // events の重複を削除
+//        var eventsArray = events.map { $0.rawValue }
+//        eventsArray = Array(Set(eventsArray))
+//
+//        let parameters: [String : Any] = [
+//            "user_id": userId,
+//            "events": eventsArray
+//        ]
+//
+//        guard let data = try? JSONSerialization.data(withJSONObject: parameters) else {
+//            throw TCError.unknownError(message: "can not serialize parameters")
+//        }
+//
+//        var request = URLRequest(url: url)
+//        request.httpBody = data
+//        request.httpMethod = HTTPMethod.post.rawValue
+//
+//        let registerWebHookResponse = try await send(clientId: clientId, clientSecret: clientSecret, request: request, type: TCRegisterWebHookResponse.self)
+//
+//        return registerWebHookResponse
+//
+//    }
+//
+//
+//    /// WebHookを削除する。
+//    /// - Parameters:
+//    ///   - clientId: クライアントID
+//    ///   - clientSecret: クライアントシークレット
+//    ///   - userId: ユーザID
+//    ///   - events: フックを削除するイベント種別(ライブ開始:"livestart", ライブ終了:"liveend")の配列
+//    /// - Returns: TCRemoveWebHookResponse
+//    public func removeWebHook(clientId: String, clientSecret: String, userId: String, events: [WebHookEvent]) async throws -> TCRemoveWebHookResponse {
+//
+//        let url = URL(string: baseURL + "/webhooks")!
+//
+//        // events の重複を削除
+//        var eventsArray = events.map { $0.rawValue }
+//        eventsArray = Array(Set(eventsArray))
+//
+//        let parameters: [String : Any] = [
+//            "user_id": userId,
+//            "events": eventsArray
+//        ]
+//
+//        guard let data = try? JSONSerialization.data(withJSONObject: parameters) else {
+//            throw TCError.unknownError(message: "can not serialize parameters")
+//        }
+//
+//        var request = URLRequest(url: url)
+//        request.httpBody = data
+//        request.httpMethod = HTTPMethod.delete.rawValue
+//
+//        let removeWebHookResponse = try await send(clientId: clientId, clientSecret: clientSecret, request: request, type: TCRemoveWebHookResponse.self)
+//
+//        return removeWebHookResponse
+//
+//    }
     
     // MARK: - Broadcasting
 
@@ -859,13 +859,15 @@ public struct TwitCastingAPI {
     /// - Returns: TCRTMPUrlResponse
     public func getRTMPUrl(token: String) async throws -> TCRTMPUrlResponse {
         
-        let url = URL(string: baseURL + "/rtmp_url")!
+        try await TCGetRTMPUrlRequest(token: token).send()
         
-        let request = URLRequest(url: url)
-        
-        let rtmpUrlResponse = try await send(token: token, request: request, type: TCRTMPUrlResponse.self)
-        
-        return rtmpUrlResponse
+//        let url = URL(string: baseURL + "/rtmp_url")!
+//
+//        let request = URLRequest(url: url)
+//
+//        let rtmpUrlResponse = try await send(token: token, request: request, type: TCRTMPUrlResponse.self)
+//
+//        return rtmpUrlResponse
 
     }
     
@@ -903,30 +905,30 @@ public struct TwitCastingAPI {
         
     }
 
-    /// リクエストを送信する
-    /// - Parameters:
-    ///   - clientId: クライアントID
-    ///   - clientSecret: クライアントシークレット
-    ///   - request: リクエスト
-    ///   - type: レスポンスの型
-    /// - Returns: レスポンスオブジェクト
-    private func send<T: Codable>(clientId: String, clientSecret: String, request: URLRequest, type: T.Type) async throws -> T {
-        
-        let client = "\(clientId):\(clientSecret)"
-        
-        guard let clientData = client.data(using: .utf8) else {
-            throw TCError.unknownError(message: "can not convert clientId and clientSecret into data.")
-        }
-        
-        let encodeString = clientData.base64EncodedString()
-        
-        var request = request
-        request.addValue("2.0", forHTTPHeaderField: "X-Api-Version")
-        request.addValue("Basic \(encodeString)", forHTTPHeaderField: "Authorization")
-        
-        return try await send(request: request, type: type)
-
-    }
+//    /// リクエストを送信する
+//    /// - Parameters:
+//    ///   - clientId: クライアントID
+//    ///   - clientSecret: クライアントシークレット
+//    ///   - request: リクエスト
+//    ///   - type: レスポンスの型
+//    /// - Returns: レスポンスオブジェクト
+//    private func send<T: Codable>(clientId: String, clientSecret: String, request: URLRequest, type: T.Type) async throws -> T {
+//
+//        let client = "\(clientId):\(clientSecret)"
+//
+//        guard let clientData = client.data(using: .utf8) else {
+//            throw TCError.unknownError(message: "can not convert clientId and clientSecret into data.")
+//        }
+//
+//        let encodeString = clientData.base64EncodedString()
+//
+//        var request = request
+//        request.addValue("2.0", forHTTPHeaderField: "X-Api-Version")
+//        request.addValue("Basic \(encodeString)", forHTTPHeaderField: "Authorization")
+//
+//        return try await send(request: request, type: type)
+//
+//    }
     
     /// リクエストを送信する
     /// - Parameters:
