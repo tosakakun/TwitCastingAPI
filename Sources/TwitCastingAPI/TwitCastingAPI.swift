@@ -178,36 +178,6 @@ public struct TwitCastingAPI {
         
         return try await TCGetLiveThumbnailImageRequest(userId: userId).send(parameter: parameter)
         
-//        let url = URL(string: baseURL + "/users/\(userId)/live/thumbnail")!
-//
-//        var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
-//        components.queryItems = [
-//            URLQueryItem(name: "size", value: size.rawValue),
-//            URLQueryItem(name: "position", value: position.rawValue)
-//        ]
-//
-//        let request = URLRequest(url: components.url!)
-//
-//        let (data, response) = try await URLSession.shared.data(for: request)
-//
-//        guard let httpURLResponse = response as? HTTPURLResponse else {
-//            throw TCError.unknownError(message: "can not cast to HTTPURLResponse")
-//        }
-//
-//        if httpURLResponse.statusCode == 302,
-//            let location = httpURLResponse.value(forHTTPHeaderField: "Location"),
-//            let redirectURL = URL(string: location) {
-//
-//            let secondRequest = URLRequest(url: redirectURL)
-//
-//            let (data, _) = try await URLSession.shared.data(for: secondRequest)
-//
-//            return data
-//
-//        }
-//
-//        return data
-        
     }
     
     // MARK: - Movie
