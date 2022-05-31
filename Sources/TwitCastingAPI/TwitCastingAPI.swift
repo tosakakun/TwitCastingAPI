@@ -87,7 +87,7 @@ public struct TwitCastingAPI {
     }
     
     /// 配信中のライブ検索の検索種別
-    public enum LiveMoviesType: String, CaseIterable, Identifiable {
+    public enum LiveMoviesType: String, CaseIterable, Identifiable, CustomStringConvertible, Encodable {
         case tag
         case word
         case category
@@ -97,11 +97,19 @@ public struct TwitCastingAPI {
         public var id: Self {
             self
         }
+        
+        public var description: String {
+            rawValue
+        }
     }
     
     /// 配信中のライブ検索の言語設定
-    public enum LiveMoviesLang: String {
+    public enum LiveMoviesLang: String, CustomStringConvertible, Encodable {
         case ja
+        
+        public var description: String {
+            rawValue
+        }
     }
     
     /// フックするイベント種別
@@ -714,25 +722,29 @@ public struct TwitCastingAPI {
     /// - Returns: TCLiveMoviesResponse
     public func searchLiveMovies(token: String, limit: Int = 10, type: LiveMoviesType, context: String?, lang: LiveMoviesLang = .ja) async throws -> TCLiveMoviesResponse {
         
-        let url = URL(string: baseURL + "/search/lives")!
+        let parameter = TCSearchLiveMoviesRequest.Parameter(limit: limit, type: type, context: context, lang: lang)
         
-        var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
-        components.queryItems = [
-            URLQueryItem(name: "limit", value: "\(limit)"),
-            URLQueryItem(name: "type", value: type.rawValue),
-            URLQueryItem(name: "lang", value: lang.rawValue)
-        ]
+        return try await TCSearchLiveMoviesRequest(token: token).send(parameter: parameter)
         
-        
-        if type == .tag || type == .word || type == .category {
-            components.queryItems?.append(URLQueryItem(name: "context", value: context))
-        }
-        
-        let request = URLRequest(url: components.url!)
-        
-        let liveMoviesResponse = try await send(token: token, request: request, type: TCLiveMoviesResponse.self)
-        
-        return liveMoviesResponse
+//        let url = URL(string: baseURL + "/search/lives")!
+//
+//        var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
+//        components.queryItems = [
+//            URLQueryItem(name: "limit", value: "\(limit)"),
+//            URLQueryItem(name: "type", value: type.rawValue),
+//            URLQueryItem(name: "lang", value: lang.rawValue)
+//        ]
+//
+//
+//        if type == .tag || type == .word || type == .category {
+//            components.queryItems?.append(URLQueryItem(name: "context", value: context))
+//        }
+//
+//        let request = URLRequest(url: components.url!)
+//
+//        let liveMoviesResponse = try await send(token: token, request: request, type: TCLiveMoviesResponse.self)
+//
+//        return liveMoviesResponse
         
     }
     
