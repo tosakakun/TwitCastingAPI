@@ -175,9 +175,9 @@ extension TCBaseRequest {
         TwitCastingAPI.xRateLimitRemaining = Int(httpURLResponse.value(forHTTPHeaderField: "X-RateLimit-Remaining") ?? "0") ?? 0
         TwitCastingAPI.xRateLimitReset = Int(httpURLResponse.value(forHTTPHeaderField: "X-RateLimit-Reset") ?? "0") ?? 0
         
-        guard httpURLResponse.statusCode == 200 || httpURLResponse.statusCode == 201 else {
+        guard (200..<300).contains(httpURLResponse.statusCode) else {
             
-            // ステータスコードが 200, 201 以外ならツイキャスエラーにデコードしてスローする
+            // ステータスコードが 200番台以外ならツイキャスエラーにデコードしてスローする
             if let errorResponse = try? decoder.decode(TCErrorResponse.self, from: data) {
                 throw errorResponse.error
             } else {
