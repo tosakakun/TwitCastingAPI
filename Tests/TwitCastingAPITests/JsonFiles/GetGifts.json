@@ -1,0 +1,17 @@
+{
+    "slice_id":2124,
+    "gifts":[
+        {
+            "id":2125,
+            "message":"モイ！",
+            "item_image":"https://twitcasting.tv/img/item_tea.png",
+            "item_id":"tea",
+            "item_mp":10,
+            "item_name":"お茶",
+            "user_image":"http://202-234-44-53.moi.st/image3s/pbs.twimg.com/profile_images/613625726512705536/GLlBoXcS_normal.png",
+            "user_screen_id":"twitcasting_jp",
+            "user_screen_name":"twitcasting_jp",
+            "user_name":"ツイキャス公式",
+        },
+    ]
+}

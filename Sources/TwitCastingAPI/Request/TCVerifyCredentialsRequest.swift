@@ -8,7 +8,7 @@
 import Foundation
 
 /// アクセストークンを検証し、ユーザ情報を取得する。
-struct TCverifyCredentialsRequest: TCBaseRequest {
+struct TCVerifyCredentialsRequest: TCBaseRequest {
     
     typealias Response = TCCredentialResponse
     typealias Request = TCEmptyRequest

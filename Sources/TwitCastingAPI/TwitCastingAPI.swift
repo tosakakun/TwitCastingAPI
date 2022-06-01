@@ -142,7 +142,7 @@ public struct TwitCastingAPI {
     /// - Returns: TCCredentialResponse
     public func verifyCredentials(token: String) async throws -> TCCredentialResponse {
         
-        try await TCverifyCredentialsRequest(token: token).send()
+        try await TCVerifyCredentialsRequest(token: token).send()
 
     }
     

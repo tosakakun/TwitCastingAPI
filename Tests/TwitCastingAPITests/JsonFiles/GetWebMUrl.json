@@ -1,0 +1,4 @@
+{
+    "enabled": true,
+    "url": "wss://webm01.twitcasting.tv/ws.app/reader/webm?user_id=twitcasting_jp&key=this_is_secret_key&client_type=public_api"
+}

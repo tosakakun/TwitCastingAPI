@@ -24,6 +24,10 @@ let package = Package(
             dependencies: []),
         .testTarget(
             name: "TwitCastingAPITests",
-            dependencies: ["TwitCastingAPI"]),
+            dependencies: ["TwitCastingAPI"],
+            resources: [
+                .copy("JsonFiles"),
+            ]
+        ),
     ]
 )
