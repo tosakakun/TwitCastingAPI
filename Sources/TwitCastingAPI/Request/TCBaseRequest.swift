@@ -52,8 +52,6 @@ enum HTTPMethod: String {
                 throw TCError.unknownError(message: "can not get url from URLComponents")
             }
             
-            print("GET with parameters URL: \(getUrl)")
-            
             var request = URLRequest(url: getUrl)
             request.httpMethod = rawValue
             return request
