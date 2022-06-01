@@ -7,7 +7,7 @@
 
 import Foundation
 
-class MockURLProtocol: URLProtocol {
+final class MockURLProtocol: URLProtocol {
     
     typealias RequestHandler = ((URLRequest) throws -> (HTTPURLResponse, Data?))
     

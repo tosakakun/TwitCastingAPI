@@ -8,7 +8,7 @@
 import XCTest
 @testable import TwitCastingAPI
 
-class TwitCastingAPIHTTPMethodTests: XCTestCase {
+final class TwitCastingAPIHTTPMethodTests: XCTestCase {
     
     func testHTTPMethodGet() throws {
 
