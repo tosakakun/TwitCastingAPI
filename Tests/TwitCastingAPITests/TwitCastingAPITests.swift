@@ -20,15 +20,15 @@ final class TwitCastingAPITests: XCTestCase {
         try await super.tearDown()
     }
     
-    private func setMockData(fileName: String) {
+    private func setMockData(fileName: String, statusCode: Int = 200) {
         
         MockURLProtocol.requestHandler = { request in
             
-            let response = HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: nil)!
+            let response = HTTPURLResponse(url: request.url!, statusCode: statusCode, httpVersion: nil, headerFields: nil)!
             
             guard let jsonUrl = Bundle.module.url(forResource: "JsonFiles/\(fileName)", withExtension: "json"),
                   let jsonData = try? String(contentsOf: jsonUrl) else {
-                      fatalError("GetUserInfo.json not found")
+                      fatalError("\(fileName).json not found")
                   }
             
             let data = jsonData.data(using: .utf8)
