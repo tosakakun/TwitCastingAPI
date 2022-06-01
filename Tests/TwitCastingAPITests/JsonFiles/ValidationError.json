@@ -1,0 +1,10 @@
+{
+    "error":{
+        "code":1001,
+        "message":"Validation error",
+        "details": {
+            "limit": ["intVal"],
+            "offset": ["min"]
+        }
+    }
+}

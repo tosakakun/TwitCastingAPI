@@ -1,0 +1,6 @@
+{
+    "error":{
+        "code":2005,
+        "message":"Out of scope"
+    }
+}

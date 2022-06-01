@@ -1,0 +1,6 @@
+{
+    "error":{
+        "code":2006,
+        "message":"Email is not verified"
+    }
+}

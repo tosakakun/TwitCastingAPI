@@ -1,0 +1,6 @@
+{
+    "error":{
+        "code":2003,
+        "message":"Duplicate"
+    }
+}
