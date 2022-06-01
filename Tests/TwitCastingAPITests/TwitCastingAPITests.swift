@@ -553,7 +553,7 @@ final class TwitCastingAPITests: XCTestCase {
         } catch let error as TCError {
             
             switch error {
-            case .duplicate(let code, let message):
+            case .tooManyComments(let code, let message):
                 XCTAssertEqual(code, 2004)
                 XCTAssertEqual(message, "Too many comments")
             default:
