@@ -16,11 +16,10 @@ Add `.package(url: "https://github.com/tosakakun/TwitCastingAPI.git", from: "1.0
 
 ## Usage
 
-Sample Project is here.
 You have to generate your client id via [the Developer page](https://ssl.twitcasting.tv/developer.php)
 
 ### Authentication
-Create an instance of TwitCastingAuth with client ID and callback URL scheme.
+Create an instance of TwitCastingAuth with your client ID and callback URL scheme.
 ```Swift
 import SwiftUI
 import TwitCastingAPI
