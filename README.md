@@ -143,6 +143,6 @@ struct GetUserInfoView: View {
     
 }
 ```
-All TwitCasting API v2 can be used in the same way, except WebHook. 
+All TwitCasting API v2 can be used in the same way, except WebHook and Realtime API. 
 ## License
 MIT
