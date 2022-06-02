@@ -16,7 +16,7 @@ Add `.package(url: "https://github.com/tosakakun/TwitCastingAPI.git", from: "1.0
 
 ## Usage
 
-You have to generate your client id via [the Developer page](https://ssl.twitcasting.tv/developer.php)
+You have to generate your client id and set Callback URL via [the Developer page](https://ssl.twitcasting.tv/developer.php).
 
 ### Authentication
 Create an instance of TwitCastingAuth with your client ID and callback URL scheme.
