@@ -18,7 +18,7 @@ offical document => [https://apiv2-doc.twitcasting.tv/](https://apiv2-doc.twitca
 
 ## Usage
 
-You have to generate your client id and set Callback URL via [the Developer page](https://ssl.twitcasting.tv/developer.php).
+You have to generate your client id and set Callback URL via [the Developer page](https://ssl.twitcasting.tv/developer.php). Make sure to set the appropriate scope.
 
 ### Authentication
 Create an instance of TwitCastingAuth with your client ID and callback URL scheme.
