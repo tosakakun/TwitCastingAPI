@@ -12,7 +12,9 @@ offical document => [https://apiv2-doc.twitcasting.tv/](https://apiv2-doc.twitca
 ## Installation
 
 ### Swift Package Manager
-Add `.package(url: "https://github.com/tosakakun/TwitCastingAPI.git", from: "1.0.0")` to your `Package.swift` file's dependencies.
+1. In Xcode, select File > Add Packages.... 
+1. Spacify the repository https://github.com/tosakakun/TwitCastingAPI.git 
+1. Spacify options and then click Add Package.
 
 ## Usage
 
