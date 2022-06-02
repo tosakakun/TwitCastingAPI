@@ -115,7 +115,7 @@ public class TwitCastingAuth: NSObject, ObservableObject {
     
     // MARK: - Private Method
     
-    /// コールバックURLからトークン、トークンタイプ、トークンが執行するまでの秒数を取得する
+    /// コールバックURLからトークン、トークンタイプ、トークンが失効するまでの秒数を取得する
     /// - Parameter url: コールバックURL
     private func processResponseURL(url: URL) {
         
