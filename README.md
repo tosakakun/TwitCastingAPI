@@ -21,7 +21,7 @@ You have to generate your client id via [the Developer page](https://ssl.twitcas
 
 ### Authentication
 Create an instance of TwitCastingAuth with client ID and callback URL scheme.
-```
+```Swift
 import SwiftUI
 import TwitCastingAPI
 
@@ -45,7 +45,7 @@ struct TwitCastingAPIDevApp: App {
 }
 ```
 Call the login method on the login screen.
-```
+```Swift
 import SwiftUI
 import TwitCastingAPI
 
@@ -64,5 +64,84 @@ struct LoginView: View {
     }
 }
 ```
+### Getting Information
+Get User Info
+```Swift
+import Foundation
+import TwitCastingAPI
+
+class GetUserInfoViewModel: ObservableObject {
+    
+    @Published var userInfo: TCUserInfoResponse?
+    
+    private let api = TwitCastingAPI()
+    
+    func getUserInfo(token: String, id: String) async {
+        
+        do {
+            
+            let userInfo = try await api.getUserInfo(token: token, userId: id)
+            
+            DispatchQueue.main.async {
+                self.userInfo = userInfo
+            }
+            
+        } catch let error as TCError {
+            print(error.localizedDescription)
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+    }
+
+}
+```
+```Swift
+import SwiftUI
+import TwitCastingAPI
+
+struct GetUserInfoView: View {
+    
+    @EnvironmentObject var auth: TwitCastingAuth
+    
+    @StateObject var viewModel = GetUserInfoViewModel()
+    
+    @State private var id = ""
+
+    var body: some View {
+        
+        VStack {
+            TextField("id or screen_id を入力", text: $id)
+                .textFieldStyle(.roundedBorder)
+                .padding()
+            Button {
+                Task {
+                    await viewModel.getUserInfo(token: auth.token, id: id)
+                }
+            } label: {
+                Text("検索")
+            }
+            
+            if let userInfo = viewModel.userInfo {
+                
+                AsyncImage(url: URL(string: userInfo.user.image))
+                Text(userInfo.user.id)
+                Text(userInfo.user.screenId)
+                Text(userInfo.user.name)
+                Text("\(userInfo.user.level)")
+                Text(userInfo.user.profile)
+
+            }
+
+            Spacer()
+            
+        }
+        .navigationTitle("Get User Info テスト")
+
+    }
+    
+}
+```
+
 ## License
 MIT
