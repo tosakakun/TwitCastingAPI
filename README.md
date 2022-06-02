@@ -1,6 +1,6 @@
 # TwitCasting API v2 Client in Swift
 
-Swift client libraty for TwitCasting API v2
+Swift client library for TwitCasting API v2
 
 offical document => [https://apiv2-doc.twitcasting.tv/](https://apiv2-doc.twitcasting.tv/)
 
