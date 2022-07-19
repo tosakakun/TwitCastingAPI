@@ -86,13 +86,13 @@ public class TwitCastingAuth: NSObject, ObservableObject {
         let authSession = ASWebAuthenticationSession(url: components.url!, callbackURLScheme: self.callbackURLScheme) { url, error in
             
             if let error = error {
-                self.error = TCError.unknownError(code: 401, message: error.localizedDescription)
+                self.setError(error: TCError.unknownError(code: 401, message: error.localizedDescription))
                 print(error.localizedDescription)
             } else if let url = url {
                 self.processResponseURL(url: url)
             } else {
                 print("unknown error")
-                self.error = TCError.unknownError(code: 401, message: "no callback URL")
+                self.setError(error: TCError.unknownError(code: 401, message: "no callback URL"))
             }
             
         }
@@ -105,12 +105,14 @@ public class TwitCastingAuth: NSObject, ObservableObject {
     
     /// ログアウト
     public func logout() {
-        self.token = ""
-        self.expirationDate = 0
-        self.credentialResponse = nil
-        // キーチェーンからトークンとトークン失効日時を削除
-        deleteToken()
-        deleteExpirationDate()
+        DispatchQueue.main.async {
+            self.token = ""
+            self.expirationDate = 0
+            self.credentialResponse = nil
+            // キーチェーンからトークンとトークン失効日時を削除
+            self.deleteToken()
+            self.deleteExpirationDate()
+        }
     }
     
     // MARK: - Private Method
@@ -125,7 +127,7 @@ public class TwitCastingAuth: NSObject, ObservableObject {
                 let dummyURL = URL(string: "https://dummy.com?\(fragment)"),
                 let queryItems = URLComponents(url: dummyURL, resolvingAgainstBaseURL: true)?.queryItems else {
             print("queryItems を取得できませんでした")
-            self.error = TCError.unknownError(code: 401, message: "can not retrieve queryItems")
+            setError(error: TCError.unknownError(code: 401, message: "can not retrieve queryItems"))
             return
         }
         
@@ -139,14 +141,14 @@ public class TwitCastingAuth: NSObject, ObservableObject {
         guard let csrfToken = queryItems.filter({ $0.name == "state"}).first?.value,
               csrfToken == self.csrfToken else {
             print("CSRFトークンが一致しません")
-            self.error = TCError.unknownError(code: 401, message: "CSRF token does not match.")
+            self.setError(error: TCError.unknownError(code: 401, message: "CSRF token does not match."))
             return
         }
         
         // アクセストークンを取得
         guard let token = queryItems.filter({ $0.name == "access_token"}).first?.value else {
             print("token を取得できませんでした")
-            self.error = TCError.unknownError(code: 401, message: "can not retrieve token")
+            self.setError(error: TCError.unknownError(code: 401, message: "can not retrieve token"))
             return
         }
         
@@ -184,12 +186,12 @@ public class TwitCastingAuth: NSObject, ObservableObject {
 
         } catch let error as TCError {
             print(error.localizedDescription)
-            self.error = error
+            setError(error: error)
             // エラーが発生したらログアウト
             logout()
         } catch {
             print(error.localizedDescription)
-            self.error = TCError.unknownError(message: error.localizedDescription)
+            setError(error: TCError.unknownError(message: error.localizedDescription))
             // エラーが発生したらログアウト
             logout()
         }
@@ -257,6 +259,14 @@ public class TwitCastingAuth: NSObject, ObservableObject {
     /// アクセストークン失効日時
     private func deleteExpirationDate() {
         KeyChain.delete(key: "expirationDate")
+    }
+    
+    /// エラーを設定する
+    /// - Parameter error: TCError
+    private func setError(error: TCError) {
+        DispatchQueue.main.async {
+            self.error = error
+        }
     }
     
 }
